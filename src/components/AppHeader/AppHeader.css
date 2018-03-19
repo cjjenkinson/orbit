@@ -1,0 +1,56 @@
+.app-header-container {
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+  background: #fff;
+  border-bottom: 1px solid #d5dee6;
+}
+
+.app-header {
+  margin-top: 6px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  z-index: 1000;
+}
+
+.app-header-workspace {
+  float: left;
+  cursor: pointer;
+}
+
+.app-header-workspace-switch {
+  margin-left: 8px;
+}
+
+.app-header-workspace-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.app-header-team-name {
+  display: block;
+  font-size: 0.6rem;
+}
+
+.app-header-nav {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.app-header-account {
+  text-align: right;
+}
+
+#dashboard-header-logo {
+  width: 40px;
+  float: left;
+  margin-right: 8px;
+}
+
+#dashboard-header-avatar {
+  width: 32px;
+  border-radius: 20px;
+}
