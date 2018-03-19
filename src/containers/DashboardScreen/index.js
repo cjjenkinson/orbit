@@ -24,9 +24,7 @@ class DashboardScreen extends Component {
       </div>
       <div className="col col-4">
         <div className="right">
-          <Button primary onClick={() => alert('Callback')}>
-            New Workspace
-          </Button>
+          <Button primary>New Workspace</Button>
         </div>
       </div>
     </div>
