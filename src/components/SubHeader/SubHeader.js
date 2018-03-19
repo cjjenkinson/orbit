@@ -1,6 +1,5 @@
 import React from 'react';
-import '../styles/index.css';
-import '../styles/SubHeader.css';
+import './SubHeader.css';
 
 const SubHeader = () => (
   <div className="clearfix subheader-container">
