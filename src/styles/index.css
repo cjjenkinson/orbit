@@ -1,0 +1,28 @@
+@import "basscss";
+@import "basscss-colors";
+@import "basscss-background-colors";
+
+:root {
+  --primary-color: #24273C;
+  --secondary-color: #488CF4;
+  --primary-share: #323759;
+}
+
+* {
+  margin: 0px;
+  outline: none;
+}
+
+html {
+  color: #24273C;
+  background: #F6F7F9;
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+
+.app-main {
+  display: flex;
+  min-width: 100%;
+  min-height: 100vh;
+}
