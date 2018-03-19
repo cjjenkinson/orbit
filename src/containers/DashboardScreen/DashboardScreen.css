@@ -1,0 +1,11 @@
+.dashboard-container {
+    max-width: 900px;
+    padding: 32px 16px 64px;
+    margin: 0 auto;
+}
+
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
