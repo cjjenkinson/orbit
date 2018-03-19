@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './AppHeader.css';
 import OrbitLogo from '../../assets/images/orbit_logo@2x.png';
@@ -9,11 +10,11 @@ const AppHeader = ({ title }) => (
   <div className="app-header-container clearfix">
     <div className="app-header">
       <div className="col col-4 app-header-workspace">
-        <a href="/">
+        <Link to="/">
           <img src={OrbitLogo} alt="Orbit Logo" id="dashboard-header-logo" />
-        </a>
-        <span className="app-header-workspace-name">Codeworks</span>
-        <span className="app-header-team-name">Free</span>
+          <span className="app-header-workspace-name">Codeworks</span>
+          <span className="app-header-team-name">Free</span>
+        </Link>
       </div>
       <div className="col col-4 app-header-nav">
         <span>{title}</span>

@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import '../styles/index.css';
 
 import DashboardScreen from './DashboardScreen';
+import WorkspacesScreen from './WorkspacesScreen';
 
 const App = () => (
-  <Router>
-    <div className="app-main">
-      <DashboardScreen />
-    </div>
-  </Router>
+  <div className="app-main">
+    <Route exact path="/" component={DashboardScreen} />
+    <Route exact path="/workspace/:id" component={WorkspacesScreen} />
+  </div>
 );
 
 export default App;
