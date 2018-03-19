@@ -23,6 +23,7 @@ html {
 
 .app-main {
   display: flex;
+  flex-wrap: wrap;
   min-width: 100%;
   min-height: 100vh;
 }
