@@ -15,7 +15,7 @@ const App = () => (
 
     <Route exact path="/" component={DashboardView} />
     <Route exact path="/workspace/:id" component={WorkspacesView} />
-    <Route exact path="/workspace/new" component={AddWorkspace} />
+    <Route exact path="/add" component={AddWorkspace} />
   </div>
 );
 

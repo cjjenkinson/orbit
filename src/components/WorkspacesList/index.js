@@ -1,1 +1,1 @@
-export { default } from './WorkspacesItem';
+export { default } from './WorkspacesList';

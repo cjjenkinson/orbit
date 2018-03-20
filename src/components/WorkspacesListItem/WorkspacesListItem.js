@@ -14,7 +14,7 @@ const WorkspaceListItem = ({ workspace }) => (
 );
 
 WorkspaceListItem.propTypes = {
-  workspace: PropTypes.string,
+  workspace: PropTypes.object,
 };
 
 export default WorkspaceListItem;

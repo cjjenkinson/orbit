@@ -36,7 +36,31 @@ a:visited {
 }
 
 .container {
-  margin-top: 16px;
+  max-width: 900px;
+  padding: 32px 16px 64px;
+  margin: 0 auto;
+}
+
+.panel {
+  width: 100%;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #d5dee6;
+  border-radius: 4px;
+}
+
+.flex-initial {
+  flex: initial;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 240px;
+}
+
+.flex-item {
+  flex: 1 1 0%;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: auto;
 }
 
 .modal-overlay {

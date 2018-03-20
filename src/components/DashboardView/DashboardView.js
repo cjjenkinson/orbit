@@ -17,10 +17,6 @@ class DashboardView extends Component {
     this.props.getWorkspaces();
   }
 
-  onAddWorkspace = () => {
-    // this is passed to onSubmit as prop call back
-  };
-
   renderActions = () => (
     <div className="dashboard-actions">
       <div className="col col-8">
@@ -28,7 +24,7 @@ class DashboardView extends Component {
       </div>
       <div className="col col-4">
         <div className="right">
-          <Link to="/workspace/new">
+          <Link to="/add">
             <Button primary>Add Workspace</Button>
           </Link>
         </div>
@@ -39,7 +35,7 @@ class DashboardView extends Component {
   renderWorkspaces() {
     const { workspacesById, workspacesByIdArray } = this.props;
     return (
-      <div className="dashboard-workspaces">
+      <div className="workspaces">
         <WorkspacesList
           workspacesById={workspacesById}
           workspacesByIdArray={workspacesByIdArray}
@@ -53,17 +49,15 @@ class DashboardView extends Component {
   render() {
     const { isFetching } = this.props;
     return (
-      <div>
-        <div className="container">
-          {isFetching ? (
-            this.renderLoading()
-          ) : (
-            <div className="dashboard-container">
-              {this.renderActions()}
-              {this.renderWorkspaces()}
-            </div>
-          )}
-        </div>
+      <div className="container">
+        {isFetching ? (
+          this.renderLoading()
+        ) : (
+          <div>
+            {this.renderActions()}
+            {this.renderWorkspaces()}
+          </div>
+        )}
       </div>
     );
   }
@@ -85,7 +79,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getWorkspaces: () => dispatch(workspaceActions.getWorkspaces()),
-  addWorkspace: (formData) => dispatch(workspaceActions.addWorkspace(formData)),
 });
 
 DashboardView.propTypes = {
