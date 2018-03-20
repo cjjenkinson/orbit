@@ -21,6 +21,14 @@ html {
   line-height: 1.2rem;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+}
+
 .app-main {
   display: block;
   min-width: 100%;
@@ -29,4 +37,25 @@ html {
 
 .container {
   margin-top: 16px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(45, 45, 45, 0.75);
+}
+
+.modal {
+  width: 400px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 40px;
+  margin-top: 64px;
+  background: #fff;
+  box-shadow: -1px 0 2px 0 rgba(0,0,0,0.12), 1px 0 2px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.24);
+  border-radius: 3px;
 }

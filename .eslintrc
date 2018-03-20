@@ -16,8 +16,10 @@
     "allow-parens": 0,
     "react/jsx-filename-extension": 0,
     "react/require-default-props": 0,
+    "react/no-unused-prop-types": 0,
     "react/forbid-prop-types": 0,
     "import/prefer-default-export": 0,
-    "jsx-a11y/anchor-is-valid": 0
+    "jsx-a11y/anchor-is-valid": 0,
+    "function-paren-newline": 0
   }
 }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import AppHeader from '../../components/AppHeader';
 import Loader from '../../components/Loader';
 
-class WorkspacesScreen extends Component {
+class WorkspacesView extends Component {
   componentDidMount() {}
 
   renderLoading = () => <Loader />;
@@ -13,7 +12,6 @@ class WorkspacesScreen extends Component {
     const { id } = this.props.match.params;
     return (
       <div>
-        <AppHeader title="Workspaces" />
         <div className="workspace-detail-container">
           <h3>Workspace Detail: {id}</h3>
         </div>
@@ -22,9 +20,9 @@ class WorkspacesScreen extends Component {
   }
 }
 
-WorkspacesScreen.propTypes = {
+WorkspacesView.propTypes = {
   match: PropTypes.object,
   id: PropTypes.string,
 };
 
-export default WorkspacesScreen;
+export default WorkspacesView;

@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import './DashboardScreen.css';
+import './DashboardView.css';
 
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
 import * as workspaceActions from '../../store/Workspaces/actions';
 
-import AppHeader from '../../components/AppHeader';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import WorkspacesList from '../../components/WorkspacesList';
 
-class DashboardScreen extends Component {
+class DashboardView extends Component {
   componentDidMount() {
     this.props.getWorkspaces();
   }
+
+  onAddWorkspace = () => {
+    // this is passed to onSubmit as prop call back
+  };
 
   renderActions = () => (
     <div className="dashboard-actions">
@@ -24,7 +28,9 @@ class DashboardScreen extends Component {
       </div>
       <div className="col col-4">
         <div className="right">
-          <Button primary>New Workspace</Button>
+          <Link to="/workspace/new">
+            <Button primary>Add Workspace</Button>
+          </Link>
         </div>
       </div>
     </div>
@@ -48,7 +54,6 @@ class DashboardScreen extends Component {
     const { isFetching } = this.props;
     return (
       <div>
-        <AppHeader title="Workspaces" />
         <div className="container">
           {isFetching ? (
             this.renderLoading()
@@ -64,7 +69,7 @@ class DashboardScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const isFetching = workspaceSelectors.isFetching(state);
   const [
     workspacesById,
@@ -78,15 +83,16 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getWorkspaces: () => dispatch(workspaceActions.getWorkspaces()),
+  addWorkspace: (formData) => dispatch(workspaceActions.addWorkspace(formData)),
 });
 
-DashboardScreen.propTypes = {
+DashboardView.propTypes = {
   isFetching: PropTypes.bool,
   getWorkspaces: PropTypes.func,
   workspacesById: PropTypes.object,
   workspacesByIdArray: PropTypes.array,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardView);

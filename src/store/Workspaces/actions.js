@@ -1,14 +1,14 @@
 import * as types from './actionTypes';
 import * as utils from '../utils';
 
-import workspaceService from '../../services/workspaces';
+import workspaceService from '../../services/workspaces.service';
 
 // intantiate the Workspace service
 const WorkspaceService = workspaceService();
 
 /** Workspaces Actions */
 
-export const getWorkspaces = () => async dispatch => {
+export const getWorkspaces = () => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_FETCHED });
 
