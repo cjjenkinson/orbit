@@ -13,7 +13,6 @@
     "API_ENDPOINT": true
   },
   "rules": {
-    "allow-parens": 0,
     "react/jsx-filename-extension": 0,
     "react/require-default-props": 0,
     "react/no-unused-prop-types": 0,
