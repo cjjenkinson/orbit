@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,7 +12,7 @@ import './Snapshot.css';
 
 // Calculates Points on each Axis
 function calculatePoints(length, radius) {
-  const step = Math.PI * 2 / length;
+  const step = Math.PI * 2 / length; // eslint-disable-line no-mixed-operators
   return new Array(length).fill(0).map((value, index) => ({
     x: radius * Math.sin(index * step),
     y: radius * Math.cos(index * step),
@@ -20,7 +21,7 @@ function calculatePoints(length, radius) {
 
 // Calculate Coordinates on the chart of the scores
 function calculateCoordinates(data, scale, access) {
-  const step = Math.PI * 2 / data.length;
+  const step = Math.PI * 2 / data.length; // eslint-disable-line no-mixed-operators
   const points = new Array(data.length).fill({});
   const pointString = new Array(data.length + 1)
     .fill('')
@@ -237,3 +238,4 @@ Snapshot.propTypes = {
 };
 
 export default Snapshot;
+/* eslint-disable */
