@@ -3,43 +3,80 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { Input, Row, Col, Table, Divider } from 'antd';
+
 import './DashboardView.css';
 
+import * as utils from '../../utils';
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
 import * as workspaceActions from '../../store/Workspaces/actions';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
-import WorkspacesList from '../../components/WorkspacesList';
+
+const { Search } = Input;
 
 class DashboardView extends Component {
   componentDidMount() {
+    // Don't fetch if workspaces are hydrated from localStorage
     this.props.getWorkspaces();
   }
 
+  onDeleteWorkspace = (id) => {
+    this.props.deleteWorkspace(id);
+  };
+
   renderActions = () => (
     <div className="dashboard-actions">
-      <div className="col col-8">
-        <input id="search" type="text" className="search" />
-      </div>
-      <div className="col col-4">
-        <div className="right">
+      <Row>
+        <Col span={12}>
+          <Search style={{ width: 400 }} />
+        </Col>
+        <Col span={12}>
           <Link to="/add">
             <Button primary>Add Workspace</Button>
           </Link>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 
   renderWorkspaces() {
-    const { workspacesById, workspacesByIdArray } = this.props;
+    const { workspacesById } = this.props;
+
+    const tableData = utils.createTableDataFromEntities(workspacesById);
+    const columns = [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <span>{text}</span>,
+      },
+      {
+        title: 'Entries',
+        dataIndex: 'entries',
+        key: 'entries',
+      },
+      {
+        title: 'Action',
+        dataIndex: '_id',
+        key: 'action',
+        render: id => (
+          <span>
+            <Divider type="vertical" />
+            <Link to={`workspace/${id}`}>View</Link>
+            <Divider type="vertical" />
+            <a href="#" onClick={() => this.onDeleteWorkspace(id)}>
+              Delete
+            </a>
+          </span>
+        ),
+      },
+    ];
+
     return (
-      <div className="workspaces">
-        <WorkspacesList
-          workspacesById={workspacesById}
-          workspacesByIdArray={workspacesByIdArray}
-        />
+      <div className="panel">
+        <Table columns={columns} dataSource={tableData} rowKey="_id" />
       </div>
     );
   }
@@ -65,10 +102,7 @@ class DashboardView extends Component {
 
 const mapStateToProps = (state) => {
   const isFetching = workspaceSelectors.isFetching(state);
-  const [
-    workspacesById,
-    workspacesByIdArray,
-  ] = workspaceSelectors.getWorkspacesById(state);
+  const [workspacesById, workspacesByIdArray] = workspaceSelectors.getWorkspacesById(state);
 
   return {
     isFetching,
@@ -77,13 +111,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getWorkspaces: () => dispatch(workspaceActions.getWorkspaces()),
+  deleteWorkspace: id => dispatch(workspaceActions.deleteWorkspace(id)),
 });
 
 DashboardView.propTypes = {
   isFetching: PropTypes.bool,
   getWorkspaces: PropTypes.func,
+  deleteWorkspace: PropTypes.func,
   workspacesById: PropTypes.object,
   workspacesByIdArray: PropTypes.array,
 };

@@ -6,8 +6,12 @@
   border-bottom: 1px solid #d5dee6;
 }
 
+.subheader-content {
+  padding-top: 16px;
+}
+
 .breadcrumb {
-  color: #71E2C1;
+  color: #898989;
   float: left;
   margin-right: 16px;
 }

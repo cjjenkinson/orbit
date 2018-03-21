@@ -1,24 +1,14 @@
-@import "basscss";
-@import "basscss-colors";
-@import "basscss-background-colors";
-
-:root {
-  --primary-color: #24273C;
-  --secondary-color: #488CF4;
-  --primary-share: #323759;
-}
+@import 'antd/dist/antd.css';
 
 * {
   margin: 0px;
   outline: none;
 }
 
-html {
+body {
   color: #24273C;
   background: #F6F7F9;
   font-family: 'Muli', sans-serif;
-  font-size: 1.2rem;
-  line-height: 1.2rem;
 }
 
 a {
@@ -82,4 +72,12 @@ a:visited {
   background: #fff;
   box-shadow: -1px 0 2px 0 rgba(0,0,0,0.12), 1px 0 2px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.24);
   border-radius: 3px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }

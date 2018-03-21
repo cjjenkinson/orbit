@@ -20,10 +20,9 @@ export const getWorkspaces = () => async (dispatch) => {
       throw new Error('Workspaces fetch request failed');
     }
 
-    const { workspaces } = data;
-
     // normalise workspaces
-    const workspacesById = utils.keyById(workspaces, 'id');
+    const workspacesById = utils.keyById(data, '_id');
+
     dispatch({ type: types.WORKSPACES_FETCHED_SUCCESS, workspacesById });
   } catch (err) {
     dispatch({
@@ -33,39 +32,44 @@ export const getWorkspaces = () => async (dispatch) => {
   }
 };
 
-export const addWorkspace = (data) => async (dispatch) => {
+export const addWorkspace = data => async (dispatch) => {
   try {
-    const tempId = utils.generateRandomId();
+    dispatch({ type: types.WORKSPACES_ADD });
 
-    const workspaceByTempId = {
-      [tempId]: {
-        id: tempId,
-        name: data.name,
-        category: 'Codeworks',
-        attributes: [],
-      },
-    };
+    const workspace = await WorkspaceService.createWorkspace(data);
 
-    dispatch({ type: types.WORKSPACES_ADD, workspaceByTempId });
+    const { errors, _id } = workspace;
 
-    dispatch(push(`/workspace/${tempId}`));
+    if (errors) {
+      throw new Error('Workspace already exists, choose a different name to create one.');
+    }
 
-    // const workspace = await WorkspaceService.createWorkspace(data);
+    // normalise
+    const workspaceById = utils.keyById([workspace], '_id');
 
-    // // normalise
-    // const workspaceById = utils.keyById([workspace], 'id');
-    // dispatch({ type: types.WORKSPACES_ADD_SUCCESS, workspaceById });
+    dispatch({ type: types.WORKSPACES_ADD_SUCCESS, workspaceById });
+    dispatch(push(`/workspace/${_id}`));
   } catch (err) {
     dispatch({
       type: types.WORKSPACES_ADD_FAILURE,
       error: err,
     });
+    dispatch(push('/'));
   }
 };
 
-// dispatch add workspace
-// make fetch with data
-// then normalise data (Add id)
-// dispatch success
-// catch
-// roll back, remove workspace
+export const deleteWorkspace = id => async (dispatch) => {
+  try {
+    dispatch({ type: types.WORKSPACES_DELETE });
+
+    const response = await WorkspaceService.deleteWorkspace(id);
+
+    if (!response.ok) {
+      throw new Error('Failed to delete workspace');
+    }
+
+    dispatch({ type: types.WORKSPACES_DELETE_SUCCESS, id });
+  } catch (err) {
+    dispatch({ type: types.WORKSPACES_ADD_FAILURE, error: err });
+  }
+};
