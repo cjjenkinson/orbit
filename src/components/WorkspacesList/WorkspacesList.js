@@ -13,7 +13,7 @@ const renderWorkspaceById = (workspacesById, workspaceId) => (
 
 const WorkspacesList = ({ workspacesById, workspacesByIdArray }) => (
   <div className="workspace-list">
-    {workspacesByIdArray.map((id) => renderWorkspaceById(workspacesById, id))}
+    {workspacesByIdArray.map(id => renderWorkspaceById(workspacesById, id))}
   </div>
 );
 

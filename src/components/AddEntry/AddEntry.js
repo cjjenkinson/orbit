@@ -7,7 +7,7 @@ import CancelButton from '../CancelButton';
 
 import * as workspaceActions from '../../store/Workspaces/actions';
 
-class AddWorkspace extends Component {
+class AddEntry extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,11 +24,7 @@ class AddWorkspace extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { name } = this.state;
-    // TODO: category is hard coded, should be from user team name
-    const data = {
-      name,
-      category: 'testcategory2',
-    };
+    const data = { name };
     // dispatch to addWorkspace action
     this.props.addWorkspace(data);
   };
@@ -38,9 +34,9 @@ class AddWorkspace extends Component {
       <div className="container">
         <CancelButton />
         <div className="panel">
-          <p className="h4">New Workspace</p>
+          <p className="h4">New Entry</p>
           <form onSubmit={this.onSubmit}>
-            <span>Workspace Name:</span>
+            <span>Name:</span>
             <Input value={this.state.name} onChange={this.onNameChange} />
             <button type="submit" className="button">
               Next
@@ -56,8 +52,8 @@ const mapDispatchToProps = dispatch => ({
   addWorkspace: data => dispatch(workspaceActions.addWorkspace(data)),
 });
 
-AddWorkspace.propTypes = {
+AddEntry.propTypes = {
   addWorkspace: PropTypes.func,
 };
 
-export default connect(null, mapDispatchToProps)(AddWorkspace);
+export default connect(null, mapDispatchToProps)(AddEntry);

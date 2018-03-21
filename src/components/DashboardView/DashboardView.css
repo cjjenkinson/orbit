@@ -1,5 +1,9 @@
 .dashboard-actions {
-  display: flex;
+  display: block;
   align-items: center;
   margin-bottom: 32px;
+}
+
+.dashboard-actions button {
+  float: right;
 }
