@@ -9,10 +9,10 @@ import { LOCAL_STORAGE_REDUX_KEY } from '../constants';
  * When `null` is provided, it erases all previously-stored local-storage data
  */
 const updateLocalStorage = debounce(
-  (value) =>
-    value !== null
+  value =>
+    (value !== null
       ? localStorage.setItem(LOCAL_STORAGE_REDUX_KEY, value)
-      : localStorage.removeItem(LOCAL_STORAGE_REDUX_KEY),
+      : localStorage.removeItem(LOCAL_STORAGE_REDUX_KEY)),
   500,
 );
 
