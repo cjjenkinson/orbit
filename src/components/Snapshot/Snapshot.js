@@ -7,11 +7,12 @@ import { Point } from '@vx/point';
 import { Line, LineRadial } from '@vx/shape';
 import { max, min } from 'd3-array';
 import mockData from './mockData';
+import './Snapshot.css';
 
 // Angle of radar
 const ANG = 360;
 
-// Calculate Points on each Axis
+// Calculates Points on each Axis
 function calculatePoints(length, radius) {
   const step = Math.PI * 2 / length;
   return new Array(length).fill(0).map((value, index) => ({
@@ -20,7 +21,7 @@ function calculatePoints(length, radius) {
   }));
 }
 
-// Calculate Coordinates on the chart
+// Calculate Coordinates on the chart of the scores
 function calculateCoordinates(data, scale, access) {
   const step = Math.PI * 2 / data.length;
   const points = new Array(data.length).fill({});
@@ -42,16 +43,18 @@ function calculateCoordinates(data, scale, access) {
 
 // Snapshot component
 export default ({
-  width = 600,
-  height = 600,
-  events = false,
+  width = 500,
+  height = 500,
+  events = true,
   margin = {
-    top: 20,
+    top: 10,
     left: 80,
     right: 80,
     bottom: 80,
   },
   levels = 5,
+  data = mockData,
+  title,
 }) => {
   // Snapshot must be above 10px in size
   if (width < 10) {
@@ -62,16 +65,16 @@ export default ({
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
 
-  // Create axis positions using mockData
+  // Create axis positions using data
   const radius = min([xMax, yMax]) / 2;
-  const points = calculatePoints(mockData.length, radius);
-  console.log('Points:', points);
+  const points = calculatePoints(data.length, radius);
+
   // Polulate x and y coordinates
   // const x = data => data.label;
-  const y = data => data.score;
+  const y = d => d.score;
 
   // Labels
-  const labels = mockData.map((item, index) => {
+  const labels = data.map((item, index) => {
     return item.label;
   });
 
@@ -82,7 +85,7 @@ export default ({
   });
 
   // Calculate to coordinates
-  const scoreCoordinates = calculateCoordinates(mockData, yScale, y);
+  const scoreCoordinates = calculateCoordinates(data, yScale, y);
 
   //Calculate Quadratic coordinates for curve
   function makePathCoordinates(coordinates) {
@@ -103,9 +106,54 @@ export default ({
 
   // Render the component
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} className="snapshot">
       <rect fill="#ffffff" width={width} height={height} rx={14} />
       <Group top={height / 2 - margin.top} left={width / 2}>
+        <text
+          strokeWidth={0.5}
+          stroke="rgb(223, 223, 223)"
+          style={{ fontSize: 8 }}
+          x={2}
+          y={10}
+        >
+          0
+        </text>
+        <text
+          strokeWidth={0.5}
+          stroke="rgb(223, 223, 223)"
+          style={{ fontSize: 8 }}
+          x={2}
+          y={40}
+        >
+          2
+        </text>
+        <text
+          strokeWidth={0.5}
+          stroke="rgb(223, 223, 223)"
+          style={{ fontSize: 8 }}
+          x={2}
+          y={70}
+        >
+          4
+        </text>
+        <text
+          strokeWidth={0.5}
+          stroke="rgb(223, 223, 223)"
+          style={{ fontSize: 8 }}
+          x={2}
+          y={103}
+        >
+          6
+        </text>
+        <text
+          strokeWidth={0.5}
+          stroke="rgb(223, 223, 223)"
+          style={{ fontSize: 8 }}
+          x={2}
+          y={135}
+        >
+          8
+        </text>
         {[...new Array(levels)].map((value, index) => (
           <circle
             r={(index + 1) * radius / levels}
@@ -119,7 +167,7 @@ export default ({
             fill="none"
           />
         ))}
-        {[...new Array(mockData.length)].map((value, index) => (
+        {[...new Array(data.length)].map((value, index) => (
           <Line
             key={`line-${index}`}
             from={new Point({ x: 0, y: 0 })}
@@ -139,21 +187,56 @@ export default ({
             key={`point-${index}`}
             cx={value.x}
             cy={value.y}
-            r={4}
+            r={3}
             fill="#52247f"
             className="dots"
           />
         ))}
-        {labels.map((label, index) => (
-          <text
-            stroke="#52247f"
-            strokeWidth={0.5}
-            x={points[index].x}
-            y={points[index].y}
-          >
-            {label}
-          </text>
-        ))}
+        <text
+          stroke="#52247f"
+          strokeWidth={0.5}
+          style={{ fontSize: 14 }}
+          x={points[0].x - 25}
+          y={points[0].y + 40}
+        >
+          {labels[4]}
+        </text>
+        <text
+          stroke="#52247f"
+          strokeWidth={0.5}
+          style={{ fontSize: 14 }}
+          x={points[1].x + 20}
+          y={points[1].y + 10}
+        >
+          {labels[0]}
+        </text>
+        <text
+          stroke="#52247f"
+          strokeWidth={0.5}
+          style={{ fontSize: 14 }}
+          x={points[2].x + 10}
+          y={points[2].y - 30}
+        >
+          {labels[1]}
+        </text>
+        <text
+          stroke="#52247f"
+          strokeWidth={0.5}
+          style={{ fontSize: 14 }}
+          x={points[3].x - 80}
+          y={points[3].y - 30}
+        >
+          {labels[2]}
+        </text>
+        <text
+          stroke="#52247f"
+          strokeWidth={0.5}
+          style={{ fontSize: 14 }}
+          x={points[4].x - 80}
+          y={points[4].y + 15}
+        >
+          {labels[3]}
+        </text>
       </Group>
     </svg>
   );

@@ -5,11 +5,11 @@ const mockData = [
   },
   {
     label: 'CSS',
-    score: 0.7,
+    score: 0.8,
   },
   {
     label: 'React',
-    score: 0.5,
+    score: 0.6,
   },
   {
     label: 'Angular',
@@ -17,7 +17,7 @@ const mockData = [
   },
   {
     label: 'Redux',
-    score: 0.8,
+    score: 0.7,
   },
 ];
 

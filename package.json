@@ -57,6 +57,12 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "@vx/group": "0.0.153",
+    "@vx/mock-data": "0.0.153",
+    "@vx/point": "0.0.153",
+    "@vx/scale": "0.0.153",
+    "@vx/shape": "0.0.158",
+    "d3-array": "^1.2.1",
     "dotenv": "^5.0.1",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
