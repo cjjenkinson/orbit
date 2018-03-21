@@ -1,16 +1,12 @@
-/* eslint-disable */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Group } from '@vx/group';
-import { letterFrequency } from '@vx/mock-data';
 import { scaleLinear } from '@vx/scale';
 import { Point } from '@vx/point';
-import { Line, LineRadial } from '@vx/shape';
-import { max, min } from 'd3-array';
+import { Line } from '@vx/shape';
+import { min } from 'd3-array';
 import mockData from './mockData';
 import './Snapshot.css';
-
-// Angle of radar
-const ANG = 360;
 
 // Calculates Points on each Axis
 function calculatePoints(length, radius) {
@@ -28,9 +24,7 @@ function calculateCoordinates(data, scale, access) {
   const pointString = new Array(data.length + 1)
     .fill('')
     .reduce((result, value, index) => {
-      if (index > data.length) {
-        return result;
-      }
+      if (index > data.length) return result;
       const x = scale(access(data[index - 1])) * Math.sin(index * step);
       const y = scale(access(data[index - 1])) * Math.cos(index * step);
       points[index - 1] = { x, y };
@@ -42,10 +36,9 @@ function calculateCoordinates(data, scale, access) {
 }
 
 // Snapshot component
-export default ({
+const Snapshot = ({
   width = 500,
   height = 500,
-  events = true,
   margin = {
     top: 10,
     left: 80,
@@ -54,12 +47,9 @@ export default ({
   },
   levels = 5,
   data = mockData,
-  title,
 }) => {
   // Snapshot must be above 10px in size
-  if (width < 10) {
-    return null;
-  }
+  if (width < 10) return null;
 
   // Declare the height and width of the snapshot area inside the component
   const xMax = width - margin.left - margin.right;
@@ -70,13 +60,10 @@ export default ({
   const points = calculatePoints(data.length, radius);
 
   // Polulate x and y coordinates
-  // const x = data => data.label;
   const y = d => d.score;
 
-  // Labels
-  const labels = data.map((item, index) => {
-    return item.label;
-  });
+  // Map Labels into an array
+  const labels = data.map(item => item.label);
 
   // Calculate the scale for score
   const yScale = scaleLinear({
@@ -87,7 +74,7 @@ export default ({
   // Calculate to coordinates
   const scoreCoordinates = calculateCoordinates(data, yScale, y);
 
-  //Calculate Quadratic coordinates for curve
+  // Calculate Quadratic coordinates for curve
   function makePathCoordinates(coordinates) {
     const coordinatesArray = coordinates.str.trim().split(' ');
     const firstCoordinate = coordinatesArray[0];
@@ -102,7 +89,7 @@ export default ({
     extendedCoordinatesArray.splice(10, 0, quadraticCoordinate);
     return extendedCoordinatesArray.join(' ');
   }
-  const pathPoints = makePathCoordinates(scoreCoordinates);
+  const pathCoordinates = makePathCoordinates(scoreCoordinates);
 
   // Render the component
   return (
@@ -157,7 +144,7 @@ export default ({
         {[...new Array(levels)].map((value, index) => (
           <circle
             r={(index + 1) * radius / levels}
-            key={`web-${index}`}
+            key={`web-${index + 1}`}
             cx={0}
             cy={0}
             stroke="#eceef1"
@@ -169,14 +156,14 @@ export default ({
         ))}
         {[...new Array(data.length)].map((value, index) => (
           <Line
-            key={`line-${index}`}
+            key={`line-${index + 1}`}
             from={new Point({ x: 0, y: 0 })}
             to={new Point({ x: points[index].x, y: points[index].y })}
             stroke="#eceef1"
           />
         ))}
         <path
-          d={pathPoints}
+          d={pathCoordinates}
           fill="rgba(116, 96, 246, 1)"
           fillOpacity="0.1"
           stroke="#4566d1"
@@ -184,7 +171,7 @@ export default ({
         />
         {scoreCoordinates.map((value, index) => (
           <circle
-            key={`point-${index}`}
+            key={`point-${index + 1}`}
             cx={value.x}
             cy={value.y}
             r={3}
@@ -241,4 +228,13 @@ export default ({
     </svg>
   );
 };
-/* eslint-disable */
+
+Snapshot.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+  margin: PropTypes.object,
+  levels: PropTypes.number,
+  data: PropTypes.array,
+};
+
+export default Snapshot;
