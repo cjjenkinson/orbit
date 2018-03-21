@@ -1,23 +1,23 @@
 const mockData = [
   {
-    label: 'html',
+    label: 'HTML',
+    score: 0.9,
+  },
+  {
+    label: 'CSS',
     score: 0.7,
   },
   {
-    label: 'css',
+    label: 'React',
     score: 0.5,
   },
   {
-    label: 'react',
-    score: 0.6,
+    label: 'Angular',
+    score: 0.3,
   },
   {
-    label: 'angular',
-    score: 0.4,
-  },
-  {
-    label: 'redux',
-    score: 0.6,
+    label: 'Redux',
+    score: 0.8,
   },
 ];
 
