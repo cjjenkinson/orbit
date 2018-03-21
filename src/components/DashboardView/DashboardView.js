@@ -102,12 +102,11 @@ class DashboardView extends Component {
 
 const mapStateToProps = (state) => {
   const isFetching = workspaceSelectors.isFetching(state);
-  const [workspacesById, workspacesByIdArray] = workspaceSelectors.getWorkspacesById(state);
+  const [workspacesById] = workspaceSelectors.getWorkspacesById(state);
 
   return {
     isFetching,
     workspacesById,
-    workspacesByIdArray,
   };
 };
 
@@ -121,7 +120,6 @@ DashboardView.propTypes = {
   getWorkspaces: PropTypes.func,
   deleteWorkspace: PropTypes.func,
   workspacesById: PropTypes.object,
-  workspacesByIdArray: PropTypes.array,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardView);

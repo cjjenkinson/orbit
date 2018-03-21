@@ -12,11 +12,8 @@ const initialState = Immutable({
 export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
     case types.WORKSPACES_FETCHED:
-    case types.WORKSPACES_DELETE:
-      return state.merge({
-        isFetching: true,
-      });
     case types.WORKSPACES_ADD:
+    case types.WORKSPACES_DELETE:
       return state.merge({
         isFetching: true,
       });
