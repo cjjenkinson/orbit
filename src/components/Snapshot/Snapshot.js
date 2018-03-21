@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Group } from '@vx/group';
-import { scaleLinear } from '@vx/scale';
-import { Point } from '@vx/point';
-import { Line } from '@vx/shape';
 import { min } from 'd3-array';
+import { Line } from '@vx/shape';
+import { Point } from '@vx/point';
+import { scaleLinear } from '@vx/scale';
 import mockData from './mockData';
 import './Snapshot.css';
 
@@ -82,11 +83,9 @@ const Snapshot = ({
     const masterCoordinate = 'M';
     const quadraticCoordinate = 'Q 0,0';
     extendedCoordinatesArray.splice(0, 0, masterCoordinate);
-    extendedCoordinatesArray.splice(2, 0, quadraticCoordinate);
-    extendedCoordinatesArray.splice(4, 0, quadraticCoordinate);
-    extendedCoordinatesArray.splice(6, 0, quadraticCoordinate);
-    extendedCoordinatesArray.splice(8, 0, quadraticCoordinate);
-    extendedCoordinatesArray.splice(10, 0, quadraticCoordinate);
+    for (let i = 1; i <= 5; i += 1) {
+      extendedCoordinatesArray.splice(i * 2, 0, quadraticCoordinate);
+    }
     return extendedCoordinatesArray.join(' ');
   }
   const pathCoordinates = makePathCoordinates(scoreCoordinates);
