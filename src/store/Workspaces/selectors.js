@@ -13,3 +13,10 @@ export const getWorkspacesById = (state) => {
 
   return [workspacesById, workspacesByIdArray];
 };
+
+export const getWorkspace = (state, id) => {
+  const { workspacesById } = state.workspaces;
+  const workspace = workspacesById[id];
+
+  return workspace;
+};
