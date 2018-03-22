@@ -1,6 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": ["prettier", "airbnb"],
+  "parserOptions": {
+   "ecmaVersion": 6
+  },
+  "extends": [
+    "prettier",
+    "airbnb"
+  ],
   "env": {
     "es6": true,
     "browser": true,
