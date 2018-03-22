@@ -39,8 +39,8 @@ function calculateCoordinates(data, scale, access) {
 
 // Snapshot component
 const Snapshot = ({
-  width = 500,
-  height = 500,
+  width,
+  height,
   margin = {
     top: 10,
     left: 80,
@@ -90,57 +90,24 @@ const Snapshot = ({
     return extendedCoordinatesArray.join(' ');
   }
   const pathCoordinates = makePathCoordinates(scoreCoordinates);
-
+  const levelNumbers = [2, 4, 6, 8];
+  
   // Render the component
   return (
     <svg width={width} height={height} className="snapshot">
       <rect fill="#ffffff" width={width} height={height} rx={14} />
       <Group top={height / 2 - margin.top} left={width / 2}>
-        <text
-          strokeWidth={0.5}
-          stroke="rgb(223, 223, 223)"
-          style={{ fontSize: 8 }}
-          x={2}
-          y={10}
-        >
-          0
-        </text>
-        <text
-          strokeWidth={0.5}
-          stroke="rgb(223, 223, 223)"
-          style={{ fontSize: 8 }}
-          x={2}
-          y={40}
-        >
-          2
-        </text>
-        <text
-          strokeWidth={0.5}
-          stroke="rgb(223, 223, 223)"
-          style={{ fontSize: 8 }}
-          x={2}
-          y={70}
-        >
-          4
-        </text>
-        <text
-          strokeWidth={0.5}
-          stroke="rgb(223, 223, 223)"
-          style={{ fontSize: 8 }}
-          x={2}
-          y={103}
-        >
-          6
-        </text>
-        <text
-          strokeWidth={0.5}
-          stroke="rgb(223, 223, 223)"
-          style={{ fontSize: 8 }}
-          x={2}
-          y={135}
-        >
-          8
-        </text>
+        {levelNumbers.map((number, index) => (
+          <text
+            strokeWidth={0.5}
+            stroke="rgb(223, 223, 223)"
+            style={{ fontSize: 8 }}
+            x={2}
+            y={(index + 1.4) * radius / 5}
+          >
+            {number}
+          </text>
+        ))}
         {[...new Array(levels)].map((value, index) => (
           <circle
             r={(index + 1) * radius / levels}
