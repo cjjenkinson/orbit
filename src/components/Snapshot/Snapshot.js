@@ -42,10 +42,10 @@ const Snapshot = ({
   width,
   height,
   margin = {
-    top: 10,
-    left: 80,
-    right: 80,
-    bottom: 80,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   levels = 5,
   data = mockData,
@@ -65,7 +65,8 @@ const Snapshot = ({
   const y = d => d.score;
 
   // Map Labels into an array
-  const labels = data.map(item => item.label);
+  // const labels = data.map(item => item.label);
+  const labels = [];
 
   // Calculate the scale for score
   const yScale = scaleLinear({
@@ -91,7 +92,7 @@ const Snapshot = ({
   }
   const pathCoordinates = makePathCoordinates(scoreCoordinates);
   const levelNumbers = [2, 4, 6, 8];
-  
+
   // Render the component
   return (
     <svg width={width} height={height} className="snapshot">
