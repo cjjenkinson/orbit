@@ -4,7 +4,7 @@ import * as types from './actionTypes';
 /** Workspaces Reducer */
 
 const initialState = Immutable({
-  workspacesById: undefined,
+  workspacesById: {},
   isFetching: false,
   error: undefined,
 });
