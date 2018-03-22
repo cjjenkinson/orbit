@@ -1,0 +1,7 @@
+.workspace-item {
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(213, 222, 230) !important;
+  border: 1px solid;
+  padding: 16px;
+  cursor: pointer;
+}

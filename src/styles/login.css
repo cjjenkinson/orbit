@@ -1,0 +1,13 @@
+@import "basscss";
+@import "basscss-colors";
+
+.login-screen {
+  display: inline-flex;
+  padding: 50px;
+  align: center;
+}
+
+button {
+  width: 200px;
+  align: center;
+}
