@@ -14,8 +14,20 @@ export default () => ({
       headers: { Authorization: `Basic ${encoded}` },
     };
     const response = await fetch(url, opts);
-    const auth = await response.json();
-    return auth;
+    const user = await response.json();
+    return user;
+  },
+  register: async (formValues) => {
+    const url = `${BASE_ENDPOINT}/sign-up`;
+    // const encoded = base64.encode(formValues);
+    const opts = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(formValues),
+    };
+    const response = await fetch(url, opts);
+    const user = await response.json();
+    return user;
   },
   logout: async () => {
     await clearReduxState();

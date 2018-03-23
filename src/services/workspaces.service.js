@@ -5,7 +5,7 @@ const BASE_ENDPOINT = DEV_ENDPOINT;
 
 const url = `${BASE_ENDPOINT}/dashboard`;
 
-// Instantiate the API service
+// Get the API service instance
 const api = ApiService.getInstance();
 
 export default () => ({
@@ -31,4 +31,13 @@ export default () => ({
     });
     return response;
   },
+
+  // function handleResponse(response) {
+  //   if (!response.ok) {
+  //       return Promise.reject(response.statusText);
+  //   }
+
+  //   return response.json();
+  // }
 });
+

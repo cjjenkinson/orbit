@@ -15,26 +15,48 @@ export const login = formValues => async (dispatch) => {
 
     const { email, password } = formValues;
 
-    const auth = await authService.login(email, password);
+    const user = await authService.login(email, password);
 
-    if (!auth) {
+    if (!user) {
       throw new Error('Failed to login');
     }
 
-    const { token } = auth;
+    const { token } = user;
 
     // Set the token on the ApiService
     await ApiService.getInstance().setToken(token);
 
-    dispatch({ type: types.LOGIN_SUCCESS, token });
+    dispatch({ type: types.LOGIN_SUCCESS, user });
     dispatch(push('/dashboard'));
   } catch (err) {
-    dispatch({ type: types.LOGIN_FAILED, error: err });
+    dispatch({ type: types.LOGIN_FAILURE, error: err });
+  }
+};
+
+export const register = formValues => async (dispatch) => {
+  try {
+    dispatch({ type: types.REGISTER_REQUEST });
+
+    const user = await authService.register(formValues);
+
+    if (!user) {
+      throw new Error('Failed to register new user');
+    }
+
+    const { token } = user;
+
+    // Set the token on the ApiService
+    await ApiService.getInstance().setToken(token);
+
+    dispatch({ type: types.REGISTER_SUCCESS, user });
+    dispatch(push('/dashboard'));
+  } catch (err) {
+    dispatch({ type: types.REGISTER_FAILURE, error: err });
   }
 };
 
 export const logout = () => async (dispatch) => {
-  await authService.logout();
   dispatch({ type: types.LOGOUT });
+  await authService.logout();
   dispatch(push('/login'));
 };
