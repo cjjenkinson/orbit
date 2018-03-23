@@ -8,6 +8,12 @@ import AuthService from '../../services/auth.service';
 // Instantiate the Authentication service
 const authService = AuthService();
 
+const setAuthToken = (token) => {
+  if (token) {
+    ApiService.getInstance().setToken(token);
+  }
+};
+
 // TODO: show error in antd message on failed login attempts
 export const login = formValues => async (dispatch) => {
   try {
@@ -24,7 +30,7 @@ export const login = formValues => async (dispatch) => {
     const { token } = user;
 
     // Set the token on the ApiService
-    await ApiService.getInstance().setToken(token);
+    await setAuthToken(token);
 
     dispatch({ type: types.LOGIN_SUCCESS, user });
     dispatch(push('/dashboard'));
@@ -46,7 +52,7 @@ export const register = formValues => async (dispatch) => {
     const { token } = user;
 
     // Set the token on the ApiService
-    await ApiService.getInstance().setToken(token);
+    await setAuthToken(token);
 
     dispatch({ type: types.REGISTER_SUCCESS, user });
     dispatch(push('/dashboard'));
