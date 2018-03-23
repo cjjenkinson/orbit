@@ -35,19 +35,3 @@ export const getInitialState = () => {
 
   return initialState;
 };
-
-// export const getAuthToken = () => {
-//   const stateFromStorage = getStateFromStorage();
-
-//   const state = JSON.parse(stateFromStorage);
-
-//   console.log('STATE FROM STORE', state);
-
-//   const { token } = state.auth;
-
-//   if (token) {
-//     return token;
-//   }
-
-//   return '';
-// };
