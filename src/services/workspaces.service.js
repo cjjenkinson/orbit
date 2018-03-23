@@ -1,48 +1,43 @@
 import { DEV_ENDPOINT } from '../constants';
+import ApiService from './api.service';
 
 const BASE_ENDPOINT = DEV_ENDPOINT;
 
 const url = `${BASE_ENDPOINT}/dashboard`;
 
-// TODO: Refactor for auth
-const getOpts = {
-  headers: {
-    'content-type': 'application/json',
-    authorization: 'Bearer bbb4be20-2cfe-11e8-bc91-d5c8ecaad095',
-  },
-};
+// Get the API service instance
+const api = ApiService.getInstance();
 
 export default () => ({
   fetchWorkspaces: async () => {
-    const response = await fetch(url, getOpts);
+    const response = await api.fetch(url);
     const workspaces = await response.json();
     return workspaces;
   },
 
   createWorkspace: async (data) => {
-    const opts = {
+    const response = await api.fetch(url, {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer bbb4be20-2cfe-11e8-bc91-d5c8ecaad095',
-      },
       body: JSON.stringify(data),
-    };
-    const response = await fetch(url, opts);
+    });
     const workspace = await response.json();
     return workspace;
   },
 
   deleteWorkspace: async (id) => {
     const urlWithId = `${BASE_ENDPOINT}/dashboard/${id}`;
-    const opts = {
+    const response = await api.fetch(urlWithId, {
       method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer bbb4be20-2cfe-11e8-bc91-d5c8ecaad095',
-      },
-    };
-    const response = await fetch(urlWithId, opts);
+    });
     return response;
   },
+
+  // function handleResponse(response) {
+  //   if (!response.ok) {
+  //       return Promise.reject(response.statusText);
+  //   }
+
+  //   return response.json();
+  // }
 });
+

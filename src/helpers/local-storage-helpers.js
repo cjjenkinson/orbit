@@ -3,17 +3,12 @@ import Immutable from 'seamless-immutable';
 
 import { LOCAL_STORAGE_REDUX_KEY } from '../constants';
 
-/**
- * updateLocalStorage
- * When a non-null value is provided it updates local-storage with the supplied value.
- * When `null` is provided, it erases all previously-stored local-storage data
- */
 const updateLocalStorage = debounce(
   value =>
     (value !== null
       ? localStorage.setItem(LOCAL_STORAGE_REDUX_KEY, value)
       : localStorage.removeItem(LOCAL_STORAGE_REDUX_KEY)),
-  500,
+  300,
 );
 
 export const handleStoreUpdates = (store) => {
@@ -28,8 +23,13 @@ export const clearReduxState = () => {
   updateLocalStorage(null);
 };
 
-export const getInitialState = () => {
+export const getStateFromStorage = () => {
   const stateFromStorage = localStorage.getItem(LOCAL_STORAGE_REDUX_KEY);
+  return stateFromStorage;
+};
+
+export const getInitialState = () => {
+  const stateFromStorage = getStateFromStorage();
 
   const initialState = Immutable(JSON.parse(stateFromStorage || '{}'));
 

@@ -14,9 +14,7 @@ export default function configureStore(history, initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(
-      applyMiddleware(routerMiddleware(history), thunk, logger),
-    ),
+    composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk, logger)),
   );
 
   // Hydrate state from localStorage

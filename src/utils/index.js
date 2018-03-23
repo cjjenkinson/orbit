@@ -20,3 +20,4 @@ export const createTableDataFromEntities = (entities) => {
   const data = Object.values(entities);
   return data;
 };
+

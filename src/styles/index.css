@@ -19,7 +19,7 @@ a:visited {
   color: inherit;
 }
 
-.app-main {
+.app {
   display: block;
   min-width: 100%;
   min-height: 100vh;
@@ -37,6 +37,11 @@ a:visited {
   background: #fff;
   border: 1px solid #d5dee6;
   border-radius: 4px;
+}
+
+.panel-sm {
+  max-width: 448px;
+  margin: 0 auto;
 }
 
 .flex-initial {

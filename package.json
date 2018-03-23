@@ -14,17 +14,10 @@
   "author": "",
   "license": "MIT",
   "babel": {
-    "presets": [
-      "env",
-      "react",
-      "stage-0"
-    ]
+    "presets": ["env", "react", "stage-0"]
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "git add"
-    ]
+    "*.js": ["npm run lint", "git add"]
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -61,6 +54,7 @@
     "d3-array": "^1.2.1",
     "antd": "^3.3.1",
     "babel-polyfill": "^6.26.0",
+    "base-64": "^0.1.0",
     "cookies-js": "^1.2.3",
     "dotenv": "^5.0.1",
     "history": "^4.7.2",

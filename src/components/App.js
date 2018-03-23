@@ -1,10 +1,16 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import '../styles/index.css';
 
-import AppHeader from '../components/AppHeader';
+// Public Views
+import LandingView from './LandingView';
+import LoginView from './LoginView';
+import RegisterView from './RegisterView';
+import NotFound from './NotFound';
 
+// Private Views
+import PrivateRoute from './PrivateRoute';
 import DashboardView from './DashboardView';
 import WorkspaceView from './WorkspaceView';
 import WorkspaceSettings from './WorkspaceSettings';
@@ -15,18 +21,23 @@ import EntrySettings from './EntrySettings';
 import AddSnapshot from './AddSnapshot';
 
 const App = () => (
-  <div className="app-main">
-    <AppHeader name="Codeworks" />
+  <div className="app">
+    <Switch>
+      <Route exact path="/" component={LandingView} />
+      <Route path="/login" component={LoginView} />
+      <Route path="/signup" component={RegisterView} />
 
-    <Route exact path="/" component={DashboardView} />
-    <Route exact path="/add" component={AddWorkspace} />
-    <Route exact path="/workspace/:id" component={WorkspaceView} />
-    <Route exact path="/workspace/:id/settings" component={WorkspaceSettings} />
-    <Route exact path="/workspace/:id/add" component={AddEntry} />
-    <Route exact path="/workspace/:id/entry/:id" component={EntryView} />
-    <Route exact path="/workspace/:id/entry/:id/settings" component={EntrySettings} />
-    <Route exact path="/workspace/:id/entry/:id/add" component={AddSnapshot} />
-    {/* <Route exact path="/workspace/:id/entry/:id/snapshot/:id" component={SnapshotView} /> */}
+      <PrivateRoute exact path="/dashboard" component={DashboardView} />
+      <PrivateRoute exact path="/add" component={AddWorkspace} />
+      <PrivateRoute exact path="/workspace/:id" component={WorkspaceView} />
+      <PrivateRoute exact path="/workspace/:id/settings" component={WorkspaceSettings} />
+      <PrivateRoute exact path="/workspace/:id/add" component={AddEntry} />
+      <PrivateRoute exact path="/workspace/:id/entry/:id" component={EntryView} />
+      <PrivateRoute exact path="/workspace/:id/entry/:id/settings" component={EntrySettings} />
+      <PrivateRoute exact path="/workspace/:id/entry/:id/add" component={AddSnapshot} />
+
+      <Route path="*" component={NotFound} />
+    </Switch>
   </div>
 );
 

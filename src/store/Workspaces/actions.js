@@ -3,10 +3,10 @@ import { push } from 'react-router-redux';
 import * as types from './actionTypes';
 import * as utils from '../../utils';
 
-import workspaceService from '../../services/workspaces.service';
+import WorkspaceService from '../../services/workspaces.service';
 
-// intantiate the Workspace service
-const WorkspaceService = workspaceService();
+// instantiate the Workspace service
+const workspaceService = WorkspaceService();
 
 /** Workspaces Actions */
 
@@ -14,7 +14,8 @@ export const getWorkspaces = () => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_FETCHED });
 
-    const data = await WorkspaceService.fetchWorkspaces();
+
+    const data = await workspaceService.fetchWorkspaces();
 
     if (!data) {
       throw new Error('Workspaces fetch request failed');
@@ -36,7 +37,7 @@ export const addWorkspace = data => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_ADD });
 
-    const workspace = await WorkspaceService.createWorkspace(data);
+    const workspace = await workspaceService.createWorkspace(data);
 
     const { errors, _id } = workspace;
 
@@ -54,7 +55,7 @@ export const addWorkspace = data => async (dispatch) => {
       type: types.WORKSPACES_ADD_FAILURE,
       error: err,
     });
-    dispatch(push('/'));
+    dispatch(push('/dashboard'));
   }
 };
 
@@ -62,7 +63,7 @@ export const deleteWorkspace = id => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_DELETE });
 
-    const response = await WorkspaceService.deleteWorkspace(id);
+    const response = await workspaceService.deleteWorkspace(id);
 
     if (!response.ok) {
       throw new Error('Failed to delete workspace');
