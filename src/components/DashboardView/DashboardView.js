@@ -76,7 +76,14 @@ class DashboardView extends Component {
 
     return (
       <div className="panel">
-        <Table columns={columns} dataSource={tableData} rowKey="_id" />
+        <Table
+          columns={columns}
+          dataSource={tableData}
+          rowKey="_id"
+          size="medium"
+          showHeader={false}
+          pagination="none"
+        />
       </div>
     );
   }
@@ -100,6 +107,13 @@ class DashboardView extends Component {
   }
 }
 
+DashboardView.propTypes = {
+  isFetching: PropTypes.bool,
+  getWorkspaces: PropTypes.func,
+  deleteWorkspace: PropTypes.func,
+  workspacesById: PropTypes.object,
+};
+
 const mapStateToProps = (state) => {
   const isFetching = workspaceSelectors.isFetching(state);
   const [workspacesById] = workspaceSelectors.getWorkspacesById(state);
@@ -114,12 +128,5 @@ const mapDispatchToProps = dispatch => ({
   getWorkspaces: () => dispatch(workspaceActions.getWorkspaces()),
   deleteWorkspace: id => dispatch(workspaceActions.deleteWorkspace(id)),
 });
-
-DashboardView.propTypes = {
-  isFetching: PropTypes.bool,
-  getWorkspaces: PropTypes.func,
-  deleteWorkspace: PropTypes.func,
-  workspacesById: PropTypes.object,
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardView);
