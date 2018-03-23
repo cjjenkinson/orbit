@@ -6,6 +6,7 @@ import { Form, Icon, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import * as authActions from '../../store/Auth/actions';
+import * as authSelectors from '../../store/Auth/selectors';
 
 const FormItem = Form.Item;
 
@@ -24,7 +25,7 @@ class LoginView extends Component {
     return (
       <div className="public-landing">
         <div className="container">
-          <div className="panel">
+          <div className="panel panel-sm">
             <h2>Login</h2>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>
@@ -49,10 +50,17 @@ class LoginView extends Component {
                 )}
               </FormItem>
               <FormItem>
-                <Button type="primary" htmlType="submit" className="login-form-button">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                  loading={this.props.isFetching}
+                >
                   Log in
                 </Button>
-                Or <Link to="/signup">Sign Up</Link>
+                <div>
+                  <Link to="/signup">Sign Up</Link>
+                </div>
               </FormItem>
             </Form>
           </div>
@@ -63,9 +71,18 @@ class LoginView extends Component {
 }
 
 LoginView.propTypes = {
+  isFetching: PropTypes.bool,
   login: PropTypes.func,
   form: PropTypes.any,
   validateFields: PropTypes.func,
+};
+
+const mapStateToProps = (state) => {
+  const isFetching = authSelectors.getFetchingStatus(state);
+
+  return {
+    isFetching,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -74,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
 
 const WrappedLoginForm = Form.create()(LoginView);
 
-export default connect(null, mapDispatchToProps)(WrappedLoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedLoginForm);

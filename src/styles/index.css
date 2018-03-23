@@ -39,6 +39,11 @@ a:visited {
   border-radius: 4px;
 }
 
+.panel-sm {
+  max-width: 448px;
+  margin: 0 auto;
+}
+
 .flex-initial {
   flex: initial;
   margin-left: 0px;
