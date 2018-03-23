@@ -14,7 +14,8 @@ import App from './components/App';
 const history = createHistory();
 const initialState = getInitialState();
 
-if (initialState.auth.token) {
+// hydrate the token from the initialState
+if (initialState.auth && initialState.auth.token) {
   ApiService.getInstance().setToken(initialState.auth.token);
 }
 
