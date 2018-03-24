@@ -85,7 +85,7 @@ const Snapshot = ({
     const masterCoordinate = 'M';
     const quadraticCoordinate = 'Q 0,0';
     extendedCoordinatesArray.splice(0, 0, masterCoordinate);
-    for (let i = 1; i <= 5; i += 1) {
+    for (let i = 1; i <= extendedCoordinatesArray.length; i += 1) {
       extendedCoordinatesArray.splice(i * 2, 0, quadraticCoordinate);
     }
     return extendedCoordinatesArray.join(' ');
