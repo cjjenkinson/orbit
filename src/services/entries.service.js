@@ -7,23 +7,25 @@ const url = `${BASE_ENDPOINT}/dashboard`;
 const api = ApiService.getInstance();
 
 export default () => ({
-  fetchWorkspaces: async () => {
-    const response = await api.fetch(url);
-    const workspaces = await response.json();
-    return workspaces;
+  fetchEntries: async (id) => {
+    const urlWithId = `${url}/${id}`;
+    const response = await api.fetch(urlWithId);
+    const entries = await response.json();
+    return entries;
   },
 
-  createWorkspace: async (data) => {
-    const response = await api.fetch(url, {
+  createEntry: async (id, data) => {
+    const urlWithId = `${url}/${id}`;
+    const response = await api.fetch(urlWithId, {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    const workspace = await response.json();
-    return workspace;
+    const entry = await response.json();
+    return entry;
   },
 
   deleteWorkspace: async (id) => {
-    const urlWithId = `${BASE_ENDPOINT}/dashboard/${id}`;
+    const urlWithId = `${url}/${id}`;
     const response = await api.fetch(urlWithId, {
       method: 'DELETE',
     });
@@ -38,4 +40,3 @@ export default () => ({
   //   return response.json();
   // }
 });
-

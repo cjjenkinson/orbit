@@ -1,7 +1,6 @@
-.button-link {
+.cancel-link {
   font-size: 1.0rem;
-  color: #28282E;
-  font-weight: 700;
+  font-weight: 500;
   background: none !important;
   border: none !important;
   cursor: pointer;

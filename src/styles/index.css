@@ -31,6 +31,10 @@ a:visited {
   margin: 0 auto;
 }
 
+.container-md {
+  max-width: 1200px;
+}
+
 .panel {
   width: 100%;
   padding: 16px;

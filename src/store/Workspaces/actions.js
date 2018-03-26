@@ -14,10 +14,9 @@ export const getWorkspaces = () => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_FETCHED });
 
-
     const data = await workspaceService.fetchWorkspaces();
 
-    if (!data) {
+    if (!data.length) {
       throw new Error('Workspaces fetch request failed');
     }
 
@@ -33,20 +32,32 @@ export const getWorkspaces = () => async (dispatch) => {
   }
 };
 
-export const addWorkspace = data => async (dispatch) => {
+export const addWorkspace = formData => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_ADD });
 
-    const workspace = await workspaceService.createWorkspace(data);
+    const { workspaceName, entryReference, enablers } = formData;
+    const enablersWithoutNull = enablers.filter(n => n !== undefined);
+    const workspaceData = {
+      name: workspaceName,
+      template: {
+        name: entryReference,
+        enablers: enablersWithoutNull,
+      },
+    };
+
+    const workspace = await workspaceService.createWorkspace(workspaceData);
 
     const { errors, _id } = workspace;
 
     if (errors) {
-      throw new Error('Workspace already exists, choose a different name to create one.');
+      throw new Error('A workspace with this name already exists, please use a different name.');
     }
 
     // normalise
     const workspaceById = utils.keyById([workspace], '_id');
+
+    console.log(workspaceById);
 
     dispatch({ type: types.WORKSPACES_ADD_SUCCESS, workspaceById });
     dispatch(push(`/workspace/${_id}`));
@@ -62,6 +73,7 @@ export const addWorkspace = data => async (dispatch) => {
 export const deleteWorkspace = id => async (dispatch) => {
   try {
     dispatch({ type: types.WORKSPACES_DELETE });
+    dispatch(push('/dashboard'));
 
     const response = await workspaceService.deleteWorkspace(id);
 
