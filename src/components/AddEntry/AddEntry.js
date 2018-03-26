@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Input } from 'antd';
 import CancelButton from '../CancelButton';
 
-import * as workspaceActions from '../../store/Workspaces/actions';
+import * as entryActions from '../../store/Entries/actions';
 
 class AddEntry extends Component {
   constructor(props) {
@@ -25,8 +25,9 @@ class AddEntry extends Component {
     e.preventDefault();
     const { name } = this.state;
     const data = { name };
-    // dispatch to addWorkspace action
-    this.props.addWorkspace(data);
+
+    const { id } = this.props.match.params;
+    this.props.addEntry(id, data);
   };
 
   render() {
@@ -39,7 +40,7 @@ class AddEntry extends Component {
             <span>Name:</span>
             <Input value={this.state.name} onChange={this.onNameChange} />
             <button type="submit" className="button">
-              Next
+              Add
             </button>
           </form>
         </div>
@@ -49,11 +50,13 @@ class AddEntry extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addWorkspace: data => dispatch(workspaceActions.addWorkspace(data)),
+  addEntry: (id, data) => dispatch(entryActions.addEntry(id, data)),
 });
 
 AddEntry.propTypes = {
-  addWorkspace: PropTypes.func,
+  id: PropTypes.string,
+  match: PropTypes.object,
+  addEntry: PropTypes.func,
 };
 
 export default connect(null, mapDispatchToProps)(AddEntry);

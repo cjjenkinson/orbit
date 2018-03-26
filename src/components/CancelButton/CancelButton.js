@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+import './CancelButton.css';
+
 class CancelButton extends Component {
   goBack = () => {
     this.props.history.goBack();
@@ -9,9 +11,9 @@ class CancelButton extends Component {
 
   render() {
     return (
-      <button className="cancel-link" onClick={this.goBack}>
+      <a className="cancel-link" onClick={this.goBack}>
         Cancel
-      </button>
+      </a>
     );
   }
 }
