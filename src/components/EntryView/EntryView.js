@@ -4,6 +4,10 @@ import { Row, Col } from 'antd';
 
 import SubHeader from '../../components/SubHeader';
 import Loader from '../../components/Loader';
+import Snapshot from '../../components/Snapshot';
+import mockData from '../../components/Snapshot/mockData';
+
+import './EntryView.css';
 
 class EntryView extends Component {
   renderSubHeader = () => (
@@ -23,8 +27,8 @@ class EntryView extends Component {
         <SubHeader subHeaderComponent={this.renderSubHeader()} />
         <div className="flex">
           <div className="flex-item">
-            <div className="container">
-              <div className="panel">
+            <div className="entry-container">
+              <div className="entry-panel">
                 <Row>
                   <Col span={12}>
                     <h3>Entry</h3>
@@ -33,6 +37,17 @@ class EntryView extends Component {
                     <button className="button right">Add Snapshot</button>
                   </Col>
                 </Row>
+                <div className="snapshot-panel">
+                  <Row>
+                    <Col span={9}>
+                      <div className="middle">
+                        <div className="snapshot-container">
+                          <Snapshot data={mockData} width={700} height={700} />
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
               </div>
             </div>
           </div>
