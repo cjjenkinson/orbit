@@ -16,12 +16,14 @@ export const getWorkspaces = () => async (dispatch) => {
 
     const data = await workspaceService.fetchWorkspaces();
 
-    if (!data.length) {
+    const { workspaces } = data;
+
+    if (!workspaces.length) {
       throw new Error('Workspaces fetch request failed');
     }
 
     // normalise workspaces
-    const workspacesById = utils.keyById(data, '_id');
+    const workspacesById = utils.keyById(workspaces, '_id');
 
     dispatch({ type: types.WORKSPACES_FETCHED_SUCCESS, workspacesById });
   } catch (err) {
