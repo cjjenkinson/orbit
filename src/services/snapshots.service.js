@@ -7,14 +7,7 @@ const url = `${BASE_ENDPOINT}/dashboard`;
 const api = ApiService.getInstance();
 
 export default () => ({
-  fetchEntries: async (id) => {
-    const urlWithId = `${url}/${id}`;
-    const response = await api.fetch(urlWithId);
-    const entries = await response.json();
-    return entries;
-  },
-
-  createEntry: async (id, data) => {
+  createSnapshot: async (id, data) => {
     const urlWithId = `${url}/${id}`;
     const response = await api.fetch(urlWithId, {
       method: 'POST',
@@ -24,19 +17,11 @@ export default () => ({
     return entry;
   },
 
-  deleteEntry: async (workspaceId, id) => {
-    const urlWithId = `${url}/${workspaceId}/${id}`;
+  deleteSnapshot: async (id) => {
+    const urlWithId = `${url}/${id}`;
     const response = await api.fetch(urlWithId, {
       method: 'DELETE',
     });
     return response;
   },
-
-  // function handleResponse(response) {
-  //   if (!response.ok) {
-  //       return Promise.reject(response.statusText);
-  //   }
-
-  //   return response.json();
-  // }
 });

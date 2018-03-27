@@ -18,8 +18,8 @@ export const getWorkspaces = () => async (dispatch) => {
 
     const { workspaces } = data;
 
-    if (!workspaces.length) {
-      throw new Error('Workspaces fetch request failed');
+    if (data.errors) {
+      throw new Error(workspaces.errors);
     }
 
     // normalise workspaces
@@ -53,7 +53,7 @@ export const addWorkspace = formData => async (dispatch) => {
     const { errors, _id } = workspace;
 
     if (errors) {
-      throw new Error('A workspace with this name already exists, please use a different name.');
+      throw new Error(errors);
     }
 
     // normalise

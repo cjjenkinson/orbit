@@ -58,18 +58,19 @@ export const addEntry = (id, formData) => async (dispatch) => {
   }
 };
 
-export const deleteEntry = id => async (dispatch) => {
+export const deleteEntry = (workspaceId, id) => async (dispatch) => {
   try {
     dispatch({ type: types.ENTRIES_DELETE });
 
-    const response = await entryService.deleteEntry(id);
+    const response = await entryService.deleteEntry(workspaceId, id);
 
     if (!response.ok) {
       throw new Error('Failed to delete entry');
     }
 
-    dispatch({ type: types.ENTRIES_DELETE_SUCCESS, id });
+    dispatch({ type: types.ENTRIES_DELETE_SUCCESS });
+    dispatch(push(`/workspace/${workspaceId}`));
   } catch (err) {
-    dispatch({ type: types.ENTRIES_ADD_FAILURE, error: err });
+    dispatch({ type: types.ENTRIES_DELETE_FAILURE, error: err });
   }
 };

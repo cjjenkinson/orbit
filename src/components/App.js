@@ -32,9 +32,9 @@ const App = () => (
       <PrivateRoute exact path="/workspace/:id" component={WorkspaceView} />
       <PrivateRoute exact path="/workspace/:id/settings" component={WorkspaceSettings} />
       <PrivateRoute exact path="/workspace/:id/add" component={AddEntry} />
-      <PrivateRoute exact path="/workspace/:id/:id" component={EntryView} />
-      <PrivateRoute exact path="/workspace/:id/:id/settings" component={EntrySettings} />
-      <PrivateRoute exact path="/workspace/:id/:id/add" component={AddSnapshot} />
+      <PrivateRoute exact path="/workspace/:id/:entryId" component={EntryView} />
+      <PrivateRoute exact path="/workspace/:id/:entryId/settings" component={EntrySettings} />
+      <PrivateRoute exact path="/workspace/:id/:entryId/add" component={AddSnapshot} />
 
       <Route path="*" component={NotFound} />
     </Switch>

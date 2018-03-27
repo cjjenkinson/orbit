@@ -62,9 +62,6 @@ class WorkspaceView extends Component {
             <Row>
               <div className="panel-section">
                 <h3>Template</h3>
-                <Link to={`${workspace._id}/add`} className="right">
-                  Edit
-                </Link>
               </div>
               <div className="panel-section">
                 <h4>Reference</h4>
@@ -88,9 +85,19 @@ class WorkspaceView extends Component {
 
   renderEntry = (workspacesById, id) => {
     const entry = get(workspacesById, id);
+    const { workspace } = this.props;
+    const workspaceId = workspace._id;
     return (
       <div className="panel-item" key={id}>
-        <Link to={`${this.props.workspace._id}/${id}`}>
+        <Link
+          to={{
+            pathname: `${workspaceId}/${id}`,
+            state: {
+              workspaceId,
+              entry,
+            },
+          }}
+        >
           <span>{entry.name}</span>
         </Link>
       </div>
