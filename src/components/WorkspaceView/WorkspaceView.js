@@ -91,7 +91,7 @@ class WorkspaceView extends Component {
       <div className="panel-item" key={id}>
         <Link
           to={{
-            pathname: `${workspaceId}/${id}`,
+            pathname: `${workspaceId}/${entry._id}`,
             state: {
               workspaceId,
               entry,

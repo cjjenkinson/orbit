@@ -1,8 +1,11 @@
 .app-header-container {
+  position: fixed;
+  width: 100%;
   height: 56px;
   padding: 0 16px;
   background: #fff;
   border-bottom: 1px solid #d5dee6;
+  z-index: 1000;
 }
 
 .app-header {

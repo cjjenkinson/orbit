@@ -1,11 +1,12 @@
-.entry-container {
-  max-width: 100%;
-  padding: 32px 16px 64px;
-  margin: 0 auto;
+.snapshot-sidebar {
+  min-height: calc(100vh - 124px);
+  height: 100%;
+  padding: 1rem;
 }
 
-.entry-panel {
-  width: 85%;
+.snapshot-panel {
+  width: 100%;
+  height: 95vh;
   padding: 16px;
   background: #fff;
   border: 1px solid #d5dee6;
@@ -14,14 +15,6 @@
 }
 
 .snapshot-container {
-  display: inline-block;
-  max-width: 600px;
-  margin: 50px 0px;
+  margin: 0 auto;
 }
 
-.middle {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}

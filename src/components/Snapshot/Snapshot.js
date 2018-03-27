@@ -46,9 +46,9 @@ class Snapshot extends React.Component {
     // Margins & Levels
     const margin = {
       top: 10,
-      left: 80,
-      right: 80,
-      bottom: 80,
+      left: 10,
+      right: 10,
+      bottom: 10,
     }
     const levels = 5;
 

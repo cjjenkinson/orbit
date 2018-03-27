@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import get from 'lodash/get';
+import { Link } from 'react-router-dom';
 
 import { Row, Col, Icon, Popconfirm, message } from 'antd';
 
-// import * as entrySelectors from '../../store/Entries/selectors';
+import * as entrySelectors from '../../store/Entries/selectors';
 import * as entryActions from '../../store/Entries/actions';
 
 import SubHeader from '../../components/SubHeader';
@@ -43,16 +42,55 @@ class EntryView extends Component {
     );
   };
 
+  renderSnapshots = () => {
+    const { snapshots, workspaceId, entry } = this.props;
+    return snapshots.length
+      ? snapshots.map(s => (
+        <div className="panel-item" key={s._id}>
+          <Link
+            to={{
+                pathname: `${entry.name}/${s._id}`,
+                state: {
+                  snapshot: s,
+                  workspaceId,
+                  entry,
+                },
+              }}
+          >
+            <span>{s.title}</span>
+          </Link>
+        </div>
+      ))
+      : null;
+  };
+
   renderLoading = () => <Loader />;
 
   render() {
+    const { entry, workspaceId } = this.props;
     return (
       <div>
         <SubHeader subHeaderComponent={this.renderSubHeader()} />
         <div className="flex">
           <div className="flex-item">
             <div className="container container-md">
-              <h2>Entry view</h2>
+              <div className="panel">
+                <div className="panel-section">
+                  <Link
+                    to={{
+                      pathname: `${entry.name}/add`,
+                      state: {
+                        workspaceId,
+                        entryId: entry._id,
+                      },
+                    }}
+                  >
+                    <button className="button right">Add Snapshot</button>
+                  </Link>
+                  <h3>Snapshots</h3>
+                </div>
+                {this.renderSnapshots()}
+              </div>
             </div>
           </div>
         </div>
@@ -63,10 +101,12 @@ class EntryView extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { workspaceId, entry } = ownProps.location.state;
+  const snapshots = entrySelectors.getSnapshots(state, entry._id);
 
   return {
     workspaceId,
     entry,
+    snapshots,
   };
 };
 
@@ -80,6 +120,7 @@ EntryView.propTypes = {
   workspaceId: PropTypes.string,
   match: PropTypes.object,
   deleteEntry: PropTypes.func,
+  snapshots: PropTypes.array,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryView);

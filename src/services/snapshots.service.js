@@ -7,21 +7,13 @@ const url = `${BASE_ENDPOINT}/dashboard`;
 const api = ApiService.getInstance();
 
 export default () => ({
-  createSnapshot: async (id, data) => {
-    const urlWithId = `${url}/${id}`;
+  createSnapshot: async (workspaceId, entryId, data) => {
+    const urlWithId = `${url}/${workspaceId}/${entryId}`;
     const response = await api.fetch(urlWithId, {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    const entry = await response.json();
-    return entry;
-  },
-
-  deleteSnapshot: async (id) => {
-    const urlWithId = `${url}/${id}`;
-    const response = await api.fetch(urlWithId, {
-      method: 'DELETE',
-    });
-    return response;
+    const snapshot = await response.json();
+    return snapshot;
   },
 });

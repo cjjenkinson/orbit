@@ -1,55 +1,47 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Immutable from 'seamless-immutable';
 
 import { Row, Col } from 'antd';
 
-import SubHeader from '../../components/SubHeader';
-import Loader from '../../components/Loader';
-import Snapshot from '../../components/Snapshot';
-import mockData from '../../components/Snapshot/mockData';
+import Loader from '../Loader';
+import BackButton from '../BackButton';
+import Snapshot from '../Snapshot';
 
 import './SnapshotView.css';
 
-class SnapshotView extends Component {
-  renderSubHeader = () => (
-    <Row>
-      <Col span={12}>
-        <p className="breadcrumb">January 18 Cohort /</p>
-        <p className="">Tom Moore</p>
-      </Col>
-    </Row>
-  );
+const createMutableData = data => Immutable.asMutable(data);
 
+class SnapshotView extends Component {
   renderLoading = () => <Loader />;
 
   render() {
+    const { snapshot } = this.props;
+    const snapshotData = createMutableData(snapshot.enablers);
+    console.log(snapshotData);
     return (
-      <div>
-        <SubHeader subHeaderComponent={this.renderSubHeader()} />
+      <div className="viewer">
         <div className="flex">
           <div className="flex-item">
-            <div className="entry-container">
-              <div className="entry-panel">
-                <Row>
-                  <Col span={12}>
-                    <h3>Entry</h3>
-                  </Col>
-                  <Col span={12}>
-                    <button className="button right">Add Snapshot</button>
-                  </Col>
-                </Row>
-                <div className="snapshot-panel">
-                  <Row>
-                    <Col span={9}>
-                      <div className="middle">
-                        <div className="snapshot-container">
-                          <Snapshot data={mockData} width={700} height={700} />
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
+            <Row>
+              <Col span={6}>
+                <div className="snapshot-sidebar">
+                  <BackButton>
+                    <h4>Back to Snapshots</h4>
+                  </BackButton>
                 </div>
-              </div>
-            </div>
+              </Col>
+              <Col span={18}>
+                <div className="snapshot-panel">
+                  <h4>{snapshot.title}</h4>
+                  <h4>{snapshot.date}</h4>
+                  <div className="snapshot-container">
+                    <Snapshot data={snapshotData} width={580} height={580} />
+                  </div>
+                </div>
+              </Col>
+            </Row>
           </div>
         </div>
       </div>
@@ -57,4 +49,19 @@ class SnapshotView extends Component {
   }
 }
 
-export default SnapshotView;
+const mapStateToProps = (state, ownProps) => {
+  const { snapshot, workspaceId, entry } = ownProps.location.state;
+
+  return {
+    snapshot,
+    workspaceId,
+    entry,
+  };
+};
+
+SnapshotView.propTypes = {
+  snapshot: PropTypes.object,
+  entry: PropTypes.object,
+};
+
+export default connect(mapStateToProps, null)(SnapshotView);

@@ -1,0 +1,7 @@
+.cancel-link {
+  font-size: 1.0rem;
+  font-weight: 500;
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+}

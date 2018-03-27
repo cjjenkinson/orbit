@@ -26,6 +26,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
   },
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
