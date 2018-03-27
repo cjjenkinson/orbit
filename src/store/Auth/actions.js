@@ -45,9 +45,9 @@ export const register = formValues => async (dispatch) => {
 
     const user = await authService.register(formValues);
 
-    if (!user) {
-      throw new Error('Failed to register new user');
-    }
+    // if (!user) {
+    //   throw new Error('Server: Failed to register new user');
+    // }
 
     const { token } = user;
 
