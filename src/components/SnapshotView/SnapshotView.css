@@ -1,0 +1,20 @@
+.snapshot-sidebar {
+  min-height: calc(100vh - 124px);
+  height: 100%;
+  padding: 1rem;
+}
+
+.snapshot-panel {
+  width: 100%;
+  height: 95vh;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #d5dee6;
+  border-radius: 4px;
+  float: right;
+}
+
+.snapshot-container {
+  margin: 0 auto;
+}
+

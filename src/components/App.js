@@ -18,6 +18,7 @@ import AddWorkspace from './AddWorkspace';
 import AddEntry from './AddEntry';
 import EntryView from './EntryView';
 import EntrySettings from './EntrySettings';
+import SnapshotView from './SnapshotView';
 import AddSnapshot from './AddSnapshot';
 
 const App = () => (
@@ -32,9 +33,10 @@ const App = () => (
       <PrivateRoute exact path="/workspace/:id" component={WorkspaceView} />
       <PrivateRoute exact path="/workspace/:id/settings" component={WorkspaceSettings} />
       <PrivateRoute exact path="/workspace/:id/add" component={AddEntry} />
-      <PrivateRoute exact path="/workspace/:id/:id" component={EntryView} />
-      <PrivateRoute exact path="/workspace/:id/:id/settings" component={EntrySettings} />
-      <PrivateRoute exact path="/workspace/:id/:id/add" component={AddSnapshot} />
+      <PrivateRoute exact path="/workspace/:id/:entryId" component={EntryView} />
+      <PrivateRoute exact path="/workspace/:id/:entryId/add" component={AddSnapshot} />
+      <PrivateRoute exact path="/workspace/:id/:entryId/settings" component={EntrySettings} />
+      <Route exact path="/workspace/:id/:entryId/:snapshot_id" component={SnapshotView} />
 
       <Route path="*" component={NotFound} />
     </Switch>

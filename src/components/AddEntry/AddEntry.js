@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Input } from 'antd';
-import CancelButton from '../CancelButton';
+import BackButton from '../BackButton';
 
 import * as entryActions from '../../store/Entries/actions';
 
@@ -33,7 +33,9 @@ class AddEntry extends Component {
   render() {
     return (
       <div className="container">
-        <CancelButton />
+        <BackButton>
+          Cancel
+        </BackButton>
         <div className="panel">
           <div className="panel-section">
             <h2>New Entry</h2>

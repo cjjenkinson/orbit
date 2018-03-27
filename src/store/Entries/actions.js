@@ -1,12 +1,14 @@
-import { push } from 'react-router-redux';
+import { push, goBack } from 'react-router-redux';
 
 import * as types from './actionTypes';
 import * as utils from '../../utils';
 
 import EntryService from '../../services/entries.service';
+import SnapshotService from '../../services/snapshots.service';
 
-// instantiate the Entry service
+// instantiate the API services
 const entryService = EntryService();
+const snapshotService = SnapshotService();
 
 /** Entry Actions */
 
@@ -54,22 +56,53 @@ export const addEntry = (id, formData) => async (dispatch) => {
       type: types.ENTRIES_ADD_FAILURE,
       error: err,
     });
-    dispatch(push(`/workspace/${id}`));
+    dispatch(goBack());
   }
 };
 
-export const deleteEntry = id => async (dispatch) => {
+export const deleteEntry = (workspaceId, id) => async (dispatch) => {
   try {
     dispatch({ type: types.ENTRIES_DELETE });
 
-    const response = await entryService.deleteEntry(id);
+    const response = await entryService.deleteEntry(workspaceId, id);
 
     if (!response.ok) {
       throw new Error('Failed to delete entry');
     }
 
-    dispatch({ type: types.ENTRIES_DELETE_SUCCESS, id });
+    dispatch({ type: types.ENTRIES_DELETE_SUCCESS });
+    dispatch(push(`/workspace/${workspaceId}`));
   } catch (err) {
-    dispatch({ type: types.ENTRIES_ADD_FAILURE, error: err });
+    dispatch({ type: types.ENTRIES_DELETE_FAILURE, error: err });
+  }
+};
+
+export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) => {
+  try {
+    dispatch({ type: types.ENTRIES_ADD_SNAPSHOT });
+
+    const { title, score } = formData;
+
+    const scoreAsDecimal = score.map(s => ({
+      label: s.label,
+      score: s.score / 10,
+    }));
+
+    const snapshotData = {
+      title,
+      comments: '',
+      enablers: scoreAsDecimal,
+    };
+
+    const snapshot = await snapshotService.createSnapshot(workspaceId, entryId, snapshotData);
+
+    dispatch({ type: types.ENTRIES_ADD_SNAPSHOT_SUCCESS, snapshot });
+    dispatch(goBack());
+  } catch (err) {
+    dispatch({
+      type: types.ENTRIES_ADD_SNAPSHOT_FAILURE,
+      error: err,
+    });
+    dispatch(goBack());
   }
 };
