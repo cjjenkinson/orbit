@@ -16,7 +16,7 @@ class SnapshotLabel extends React.Component {
   }
 
   render() {
-    let labelStyle = {
+    const labelStyle = {
       visibility: this.state.hover ? 'visible' : 'hidden',
     }
     return (
