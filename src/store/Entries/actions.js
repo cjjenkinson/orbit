@@ -14,15 +14,10 @@ export const getEntries = id => async (dispatch) => {
   try {
     dispatch({ type: types.ENTRIES_FETCHED });
 
-    const data = await entryService.fetchEntries(id);
-
-    if (!data.length) {
-      throw new Error('Entries fetch request failed');
-    }
+    const entries = await entryService.fetchEntries(id);
 
     // normalise entries
-    const entriesById = utils.keyById(data, '_id');
-
+    const entriesById = utils.keyById(entries, '_id');
     dispatch({ type: types.ENTRIES_FETCHED_SUCCESS, entriesById });
   } catch (err) {
     dispatch({
