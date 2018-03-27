@@ -1,22 +1,113 @@
-@import "basscss";
-@import "basscss-colors";
-@import "basscss-background-colors";
-
-
-/*
-
-Uncomment the root reference to pveride
-basscss variable with custom attributes:
-
-:root {
-  --primary-color: #000
-}
-
-*/
+@import 'antd/dist/antd.css';
 
 * {
   margin: 0px;
   outline: none;
 }
 
+body {
+  color: #24273C;
+  background: #F6F7F9;
+  font-family: 'Muli', sans-serif;
+}
 
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+}
+
+.app {
+  display: block;
+  min-width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  padding: 32px 16px 64px;
+  margin: 0 auto;
+}
+
+.container-md {
+  max-width: 1200px;
+}
+
+.panel {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d5dee6;
+  border-radius: 4px;
+}
+
+.panel-sm {
+  max-width: 448px;
+  margin: 0 auto;
+}
+
+.panel-section {
+  padding: 16px;
+  border-bottom: 1px solid #D7DEE5;
+}
+
+.panel-item {
+  padding: 16px;
+  border-bottom: 1px solid #D7DEE5;
+}
+
+.p-16 {
+  padding: 16px;
+}
+
+.gr {
+  margin-right: 16px;
+}
+
+.gl {
+  margin-left: 16px;
+}
+
+.flex-initial {
+  flex: initial;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 240px;
+}
+
+.flex-item {
+  flex: 1 1 0%;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: auto;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(45, 45, 45, 0.75);
+}
+
+.modal {
+  width: 400px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 40px;
+  margin-top: 64px;
+  background: #fff;
+  box-shadow: -1px 0 2px 0 rgba(0,0,0,0.12), 1px 0 2px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.24);
+  border-radius: 3px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
