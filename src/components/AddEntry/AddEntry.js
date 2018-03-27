@@ -35,14 +35,18 @@ class AddEntry extends Component {
       <div className="container">
         <CancelButton />
         <div className="panel">
-          <p className="h4">New Entry</p>
-          <form onSubmit={this.onSubmit}>
-            <span>Name:</span>
-            <Input value={this.state.name} onChange={this.onNameChange} />
-            <button type="submit" className="button">
-              Add
-            </button>
-          </form>
+          <div className="panel-section">
+            <h2>New Entry</h2>
+          </div>
+          <div className="p-16">
+            <form onSubmit={this.onSubmit}>
+              <span>Name:</span>
+              <Input value={this.state.name} onChange={this.onNameChange} />
+              <button type="submit" className="button">
+                Add
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     );

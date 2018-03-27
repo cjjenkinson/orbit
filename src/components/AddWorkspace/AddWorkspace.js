@@ -98,36 +98,40 @@ class AddWorkspace extends Component {
       <div className="container">
         <CancelButton />
         <div className="panel">
-          <h2>New Workspace</h2>
-          <Form onSubmit={this.handleSubmit}>
-            <FormItem label="Workspace">
-              {getFieldDecorator('workspaceName', {
-                rules: [{ required: true, message: 'Workspace name' }],
-              })(
-                <Input
-                  type="workspaceName"
-                  placeholder="e.g January cohort, marketing department"
-                />,
-              )}
-            </FormItem>
-            <FormItem label="Entry Reference">
-              {getFieldDecorator('entryReference', {
-                rules: [{ required: true, message: 'Enter a reference for entries' }],
-              })(<Input type="entryName" placeholder="e.g student, attacker, employee" />)}
-            </FormItem>
-            <h4>Enablers</h4>
-            {formItems}
-            <FormItem {...formItemLayoutWithOutLabel}>
-              <Button type="dashed" onClick={this.add} style={{ width: '80%' }}>
-                <Icon type="plus" /> Add Enabler
-              </Button>
-            </FormItem>
-            <FormItem {...formItemLayoutWithOutLabel}>
-              <Button type="primary" htmlType="submit">
-                Create Workspace
-              </Button>
-            </FormItem>
-          </Form>
+          <div className="panel-section">
+            <h2>New Workspace</h2>
+          </div>
+          <div className="p-16">
+            <Form onSubmit={this.handleSubmit}>
+              <FormItem label="Workspace">
+                {getFieldDecorator('workspaceName', {
+                  rules: [{ required: true, message: 'Workspace name' }],
+                })(
+                  <Input
+                    type="workspaceName"
+                    placeholder="e.g January cohort, marketing department"
+                  />,
+                )}
+              </FormItem>
+              <FormItem label="Entry Reference">
+                {getFieldDecorator('entryReference', {
+                  rules: [{ required: true, message: 'Enter a reference for entries' }],
+                })(<Input type="entryName" placeholder="e.g student, attacker, employee" />)}
+              </FormItem>
+              <h4>Enablers</h4>
+              {formItems}
+              <FormItem {...formItemLayoutWithOutLabel}>
+                <Button type="dashed" onClick={this.add} style={{ width: '80%' }}>
+                  <Icon type="plus" /> Add Enabler
+                </Button>
+              </FormItem>
+              <FormItem {...formItemLayoutWithOutLabel}>
+                <Button type="primary" htmlType="submit">
+                  Create Workspace
+                </Button>
+              </FormItem>
+            </Form>
+          </div>
         </div>
       </div>
     );
