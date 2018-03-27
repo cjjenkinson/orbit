@@ -23,7 +23,7 @@ export default () => ({
   },
 
   deleteWorkspace: async (id) => {
-    const urlWithId = `${BASE_ENDPOINT}/dashboard/${id}`;
+    const urlWithId = `${url}/${id}`;
     const response = await api.fetch(urlWithId, {
       method: 'DELETE',
     });
@@ -38,4 +38,3 @@ export default () => ({
   //   return response.json();
   // }
 });
-
