@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 
-import { Row, Col, Icon } from 'antd';
+import { Row, Col, Icon, Popconfirm, message } from 'antd';
 
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
 import * as workspaceActions from '../../store/Workspaces/actions';
@@ -17,13 +17,16 @@ import Loader from '../../components/Loader';
 
 class WorkspaceView extends Component {
   componentDidMount() {
-    if (!this.props.entriesById) {
-      this.fetchEntries();
-    }
+    this.fetchEntries();
   }
 
   fetchEntries = () => {
     this.props.getEntries(this.props.match.params.id);
+  };
+
+  confirm = () => {
+    this.props.deleteWorkspace(this.props.workspace._id);
+    message.info('Workspace succesfully deleted.');
   };
 
   renderSubHeader = () => {
@@ -35,9 +38,15 @@ class WorkspaceView extends Component {
         </Col>
         <Col span={12}>
           <div className="right">
-            <a href="#" onClick={() => this.props.deleteWorkspace(this.props.workspace._id)}>
+            <Popconfirm
+              placement="bottomRight"
+              title="Are you sure you want to delete this Workspace?"
+              onConfirm={this.confirm}
+              okText="Yes"
+              cancelText="No"
+            >
               <Icon type="delete" style={{ fontSize: 19, color: '#24273A' }} />
-            </a>
+            </Popconfirm>
           </div>
         </Col>
       </Row>
@@ -48,27 +57,25 @@ class WorkspaceView extends Component {
     const { workspace } = this.props;
     return (
       <Col span={8}>
-        <div className="panel">
-          <Row>
-            <Col span={12}>
-              <h3>Template</h3>
-            </Col>
-            <Col span={12}>
-              <Link to={`${workspace._id}/add`} className="right">
-                Edit
-              </Link>
-            </Col>
-            <Col span={24}>
-              <div>
+        <div className="gr">
+          <div className="panel">
+            <Row>
+              <div className="panel-section">
+                <h3>Template</h3>
+                <Link to={`${workspace._id}/add`} className="right">
+                  Edit
+                </Link>
+              </div>
+              <div className="panel-section">
                 <h4>Reference</h4>
                 <h3>{workspace.template.name}</h3>
               </div>
-              <div>
+              <div className="panel-section">
                 <h4>Enablers</h4>
                 {this.renderEnablers()}
               </div>
-            </Col>
-          </Row>
+            </Row>
+          </div>
         </div>
       </Col>
     );
@@ -82,8 +89,10 @@ class WorkspaceView extends Component {
   renderEntry = (workspacesById, id) => {
     const entry = get(workspacesById, id);
     return (
-      <div key={id}>
-        <span>{entry.name}</span>
+      <div className="panel-item" key={id}>
+        <Link to={`${this.props.workspace._id}/${id}`}>
+          <span>{entry.name}</span>
+        </Link>
       </div>
     );
   };
@@ -92,18 +101,24 @@ class WorkspaceView extends Component {
     const { workspace, entriesById, entriesByIdArray } = this.props;
     return (
       <Col span={16}>
-        <div className="panel">
-          <Row>
-            <Col span={12}>
-              <h3>{workspace.template.name}</h3>
-            </Col>
-            <Col span={12}>
-              <Link to={`${workspace._id}/add`}>
-                <button className="button right">{`Add ${workspace.template.name}`}</button>
-              </Link>
-            </Col>
-          </Row>
-          <Col span={24}>{entriesByIdArray.map(id => this.renderEntry(entriesById, id))}</Col>
+        <div className="gr">
+          <div className="panel">
+            <div className="panel-section">
+              <Row>
+                <Col span={12}>
+                  <h3>{workspace.template.name}(s)</h3>
+                </Col>
+                <Col span={12}>
+                  <Link to={`${workspace._id}/add`}>
+                    <button className="button right">{`Add ${workspace.template.name}`}</button>
+                  </Link>
+                </Col>
+              </Row>
+            </div>
+            {entriesByIdArray.length
+              ? entriesByIdArray.map(id => this.renderEntry(entriesById, id))
+              : null}
+          </div>
         </div>
       </Col>
     );
@@ -119,7 +134,7 @@ class WorkspaceView extends Component {
         <div className="flex">
           <div className="flex-item">
             <div className="container container-md">
-              <Row span={24} gutter={8}>
+              <Row span={24}>
                 {isFetching ? (
                   this.renderLoading()
                 ) : (
