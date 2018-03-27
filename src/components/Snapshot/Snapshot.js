@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Group } from '@vx/group';
-import { max, min } from 'd3-array';
+import { min } from 'd3-array';
 import { Line } from '@vx/shape';
 import { Point } from '@vx/point';
 import { scaleLinear } from '@vx/scale';
@@ -38,7 +38,7 @@ function calculateCoordinates(data, scale, access) {
   return points;
 }
 
-class SnapshotTest extends React.Component {
+class Snapshot extends React.Component {
   render() {
     // Snapshot must be above 10px in size
     if (this.props.width < 10) return null;
@@ -174,7 +174,7 @@ class SnapshotTest extends React.Component {
   }
 }
 
-SnapshotTest.propTypes = {
+Snapshot.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   margin: PropTypes.object,
@@ -182,5 +182,5 @@ SnapshotTest.propTypes = {
   data: PropTypes.array,
 };
 
-export default SnapshotTest;
+export default Snapshot;
 /* eslint-disable */
