@@ -8,7 +8,6 @@ import LandingView from './LandingView';
 import LoginView from './LoginView';
 import RegisterView from './RegisterView';
 import NotFound from './NotFound';
-import PerformanceList from './PerformanceList';
 
 // Private Views
 import PrivateRoute from './PrivateRoute';
@@ -27,7 +26,6 @@ const App = () => (
       <Route exact path="/" component={LandingView} />
       <Route path="/login" component={LoginView} />
       <Route path="/signup" component={RegisterView} />
-      <Route path="/performance-bar" component={PerformanceList} />
 
       <PrivateRoute exact path="/dashboard" component={DashboardView} />
       <PrivateRoute exact path="/add" component={AddWorkspace} />
