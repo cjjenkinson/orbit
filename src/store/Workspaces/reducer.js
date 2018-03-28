@@ -13,7 +13,6 @@ export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
     case types.WORKSPACES_FETCHED:
     case types.WORKSPACES_ADD:
-    case types.WORKSPACES_DELETE:
       return state.merge({
         isFetching: true,
       });
@@ -30,9 +29,9 @@ export default function reduce(state = initialState, action = {}) {
         },
         isFetching: false,
       });
+    case types.WORKSPACES_DELETE:
     case types.WORKSPACES_DELETE_SUCCESS:
       return state.merge({
-        isFetching: false,
         workspacesById: Immutable.without(state.workspacesById, action.id),
       });
     case types.WORKSPACES_FETCHED_FAILURE:
@@ -40,6 +39,7 @@ export default function reduce(state = initialState, action = {}) {
     case types.WORKSPACES_DELETE_FAILURE:
       return state.merge({
         error: action.error.message,
+        workspaceById: {},
         isFetching: false,
       });
     default:

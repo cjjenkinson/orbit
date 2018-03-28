@@ -1,23 +1,59 @@
 const mockData = [
   {
-    label: 'HTML',
+    label: 'Positive Attitude',
     score: 0.9,
   },
   {
-    label: 'CSS',
-    score: 0.8,
+    label: 'Productivity',
+    score: 0.9,
   },
   {
-    label: 'React',
-    score: 0.6,
+    label: 'Autonomy',
+    score: 0.9,
   },
   {
-    label: 'Angular',
-    score: 0.3,
+    label: 'Communication',
+    score: 0.9,
   },
   {
-    label: 'Redux',
-    score: 0.7,
+    label: 'Teamwork',
+    score: 0.9,
+  },
+  {
+    label: 'Self Improving',
+    score: 0.9,
+  },
+  {
+    label: 'Open Minded',
+    score: 0.9,
+  },
+  {
+    label: 'Curious',
+    score: 0.9,
+  },
+  {
+    label: 'Clean Code',
+    score: 0.9,
+  },
+  {
+    label: 'Efficient Code',
+    score: 0.9,
+  },
+  {
+    label: 'Reliable Code',
+    score: 0.9,
+  },
+  {
+    label: 'JS Knowledge',
+    score: 0.9,
+  },
+  {
+    label: 'Back-end Knowledge',
+    score: 0.9,
+  },
+  {
+    label: 'Front-end Knowledge',
+    score: 0.9,
   },
 ];
 

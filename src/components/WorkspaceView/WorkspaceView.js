@@ -2,51 +2,155 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import get from 'lodash/get';
 
-import { Row, Col } from 'antd';
+import { Row, Col, Icon, Popconfirm, message } from 'antd';
 
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
+import * as workspaceActions from '../../store/Workspaces/actions';
+
+import * as entrySelectors from '../../store/Entries/selectors';
+import * as entryActions from '../../store/Entries/actions';
 
 import SubHeader from '../../components/SubHeader';
 import Loader from '../../components/Loader';
 
 class WorkspaceView extends Component {
   componentDidMount() {
-    // fetch workspace entries
+    this.fetchEntries();
   }
 
-  renderSubHeader = () => (
-    <Row>
-      <Col span={12}>
-        <p>{this.props.workspace.name}</p>
+  fetchEntries = () => {
+    this.props.getEntries(this.props.match.params.id);
+  };
+
+  confirm = () => {
+    this.props.deleteWorkspace(this.props.workspace._id);
+    message.info('Workspace succesfully deleted.');
+  };
+
+  renderSubHeader = () => {
+    const { name } = this.props.workspace;
+    return (
+      <Row>
+        <Col span={12}>
+          <p>{name}</p>
+        </Col>
+        <Col span={12}>
+          <div className="right">
+            <Popconfirm
+              placement="bottomRight"
+              title="Are you sure you want to delete this Workspace?"
+              onConfirm={this.confirm}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Icon type="delete" style={{ fontSize: 19, color: '#24273A' }} />
+            </Popconfirm>
+          </div>
+        </Col>
+      </Row>
+    );
+  };
+
+  renderTemplate = () => {
+    const { workspace } = this.props;
+    return (
+      <Col span={8}>
+        <div className="gr">
+          <div className="panel">
+            <Row>
+              <div className="panel-section">
+                <h3>Template</h3>
+              </div>
+              <div className="panel-section">
+                <h4>Reference</h4>
+                <h3>{workspace.template.name}</h3>
+              </div>
+              <div className="panel-section">
+                <h4>Enablers</h4>
+                {this.renderEnablers()}
+              </div>
+            </Row>
+          </div>
+        </div>
       </Col>
-    </Row>
-  );
+    );
+  };
+
+  renderEnablers = () => {
+    const { enablers } = this.props.workspace.template;
+    return enablers.map(e => <li key={e}>{e}</li>);
+  };
+
+  renderEntry = (workspacesById, id) => {
+    const entry = get(workspacesById, id);
+    const { workspace } = this.props;
+    const workspaceId = workspace._id;
+    return (
+      <div className="panel-item" key={id}>
+        <Link
+          to={{
+            pathname: `${workspaceId}/${entry._id}`,
+            state: {
+              workspaceId,
+              entry,
+            },
+          }}
+        >
+          <span>{entry.name}</span>
+        </Link>
+      </div>
+    );
+  };
+
+  renderEntries = () => {
+    const { workspace, entriesById, entriesByIdArray } = this.props;
+    return (
+      <Col span={16}>
+        <div className="gr">
+          <div className="panel">
+            <div className="panel-section">
+              <Row>
+                <Col span={12}>
+                  <h3>{workspace.template.name}(s)</h3>
+                </Col>
+                <Col span={12}>
+                  <Link to={`${workspace._id}/add`}>
+                    <button className="button right">{`Add ${workspace.template.name}`}</button>
+                  </Link>
+                </Col>
+              </Row>
+            </div>
+            {entriesByIdArray.length
+              ? entriesByIdArray.map(id => this.renderEntry(entriesById, id))
+              : null}
+          </div>
+        </div>
+      </Col>
+    );
+  };
 
   renderLoading = () => <Loader />;
 
   render() {
+    const { isFetching } = this.props;
     return (
       <div>
         <SubHeader subHeaderComponent={this.renderSubHeader()} />
         <div className="flex">
           <div className="flex-item">
-            <div className="container">
-              <div className="panel">
-                <Row>
-                  <Col span={12}>
-                    <h2>Entries</h2>
-                  </Col>
-                  <Col span={12}>
-                    <Link to={`${this.props.workspace._id}/add`}>
-                      <button className="button right">New Entry</button>
-                    </Link>
-                  </Col>
-                </Row>
-                <Link to={`${this.props.workspace._id}/entry/tom_moore_id`}>
-                  <p>Tom Moore</p>
-                </Link>
-              </div>
+            <div className="container container-md">
+              <Row span={24}>
+                {isFetching ? (
+                  this.renderLoading()
+                ) : (
+                  <div>
+                    {this.renderTemplate()}
+                    {this.renderEntries()}
+                  </div>
+                )}
+              </Row>
             </div>
           </div>
         </div>
@@ -58,15 +162,31 @@ class WorkspaceView extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params;
   const workspace = workspaceSelectors.getWorkspace(state, id);
+  const [entriesById, entriesByIdArray] = entrySelectors.getEntriesById(state);
+  const isFetching = entrySelectors.isFetching(state);
 
   return {
+    isFetching,
     workspace,
+    entriesById,
+    entriesByIdArray,
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  deleteWorkspace: id => dispatch(workspaceActions.deleteWorkspace(id)),
+  getEntries: id => dispatch(entryActions.getEntries(id)),
+});
+
 WorkspaceView.propTypes = {
+  id: PropTypes.string,
   match: PropTypes.object,
+  isFetching: PropTypes.bool,
   workspace: PropTypes.object,
+  getEntries: PropTypes.func,
+  deleteWorkspace: PropTypes.func,
+  entriesById: PropTypes.object,
+  entriesByIdArray: PropTypes.array,
 };
 
-export default connect(mapStateToProps)(WorkspaceView);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceView);

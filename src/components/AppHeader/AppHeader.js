@@ -8,6 +8,7 @@ import './AppHeader.css';
 import OrbitLogo from '../../assets/images/orbit_logo@2x.png';
 import DefaultAvatar from '../../assets/images/default_avatar@2x.png';
 
+import * as authSelectors from '../../store/Auth/selectors';
 import * as authActions from '../../store/Auth/actions';
 
 class AppHeader extends Component {
@@ -15,24 +16,17 @@ class AppHeader extends Component {
     const menu = (
       <Menu>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-            Account Settings
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <span onClick={this.props.logout}>
-            Logout
-          </span>
+          <span onClick={this.props.logout}>Logout</span>
         </Menu.Item>
       </Menu>
     );
 
     return (
-      <Dropdown overlay={menu} placement="bottomRight">
-        <div className="app-header-account">
+      <div className="app-header-account">
+        <Dropdown overlay={menu} placement="bottomRight">
           <img src={DefaultAvatar} alt="Username avatar" id="dashboard-header-avatar" />
-        </div>
-      </Dropdown>
+        </Dropdown>
+      </div>
     );
   }
 
@@ -44,8 +38,10 @@ class AppHeader extends Component {
             <Col span={8}>
               <div className="app-header-workspace">
                 <Link to="/dashboard">
-                  <span className="app-header-workspace-name">Codeworks</span>
-                  <span className="app-header-team-name">1 Workspace</span>
+                  <span className="app-header-workspace-name">
+                    {this.props.auth.name || 'Teamname'}
+                  </span>
+                  <span className="app-header-team-name">Workspaces</span>
                 </Link>
               </div>
             </Col>
@@ -62,12 +58,20 @@ class AppHeader extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const auth = authSelectors.getAuthDetails(state);
+  return {
+    auth,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(authActions.logout()),
 });
 
 AppHeader.propTypes = {
   logout: PropTypes.func,
+  auth: PropTypes.object,
 };
 
-export default connect(null, mapDispatchToProps)(AppHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

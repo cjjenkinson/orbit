@@ -3,43 +3,67 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Input } from 'antd';
-import CancelButton from '../CancelButton';
+import BackButton from '../BackButton';
+import AddSnapshotSlider from '../AddSnapshotSlider';
 
-import * as workspaceActions from '../../store/Workspaces/actions';
+import * as workspaceSelectors from '../../store/Workspaces/selectors';
+import * as entryActions from '../../store/Entries/actions';
+
+import './AddSnapshot.css';
 
 class AddSnapshot extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      title: '',
+      score: [],
     };
   }
 
   onNameChange = (e) => {
     this.setState({
-      name: e.target.value,
+      title: e.target.value,
     });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name } = this.state;
-    const data = { name };
-    // dispatch to addWorkspace action
-    this.props.addWorkspace(data);
+    const { workspaceId, entryId } = this.props;
+    const { title, score } = this.state;
+    const data = { title, score };
+    // dispatch to addSnapshot action
+    this.props.addSnapshot(workspaceId, entryId, data);
+  };
+
+  addEnablerScoreToState = (enablerScore) => {
+    this.setState({
+      score: [...this.state.score, enablerScore],
+    });
+  };
+
+  renderEnablers = () => {
+    const { enablers } = this.props;
+    return enablers.map(enabler => (
+      <AddSnapshotSlider
+        key={`enabler: ${enabler}`}
+        enabler={enabler}
+        finalValue={enablerScore => this.addEnablerScoreToState(enablerScore)}
+      />
+    ));
   };
 
   render() {
     return (
       <div className="container">
-        <CancelButton />
-        <div className="panel">
+        <BackButton>Cancel</BackButton>
+        <div className="panel add-snapshot-panel">
           <p className="h4">New Snapshot</p>
           <form onSubmit={this.onSubmit}>
             <span>Name:</span>
-            <Input value={this.state.name} onChange={this.onNameChange} />
+            <Input value={this.state.title} onChange={this.onNameChange} />
+            {this.renderEnablers()}
             <button type="submit" className="button">
-              Next
+              Add
             </button>
           </form>
         </div>
@@ -48,12 +72,27 @@ class AddSnapshot extends Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  const { workspaceId, entryId } = ownProps.location.state;
+  const enablers = workspaceSelectors.getEnablers(state, workspaceId);
+
+  return {
+    workspaceId,
+    entryId,
+    enablers,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
-  addWorkspace: data => dispatch(workspaceActions.addWorkspace(data)),
+  addSnapshot: (workspaceId, entryId, data) =>
+    dispatch(entryActions.addSnapshot(workspaceId, entryId, data)),
 });
 
 AddSnapshot.propTypes = {
-  addWorkspace: PropTypes.func,
+  addSnapshot: PropTypes.func,
+  enablers: PropTypes.array,
+  entryId: PropTypes.string,
+  workspaceId: PropTypes.string,
 };
 
-export default connect(null, mapDispatchToProps)(AddSnapshot);
+export default connect(mapStateToProps, mapDispatchToProps)(AddSnapshot);

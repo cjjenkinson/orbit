@@ -1,9 +1,7 @@
-import { DEV_ENDPOINT } from '../constants';
+import { BASE_ENDPOINT } from './config';
 import { clearReduxState } from '../helpers/local-storage-helpers';
 
 const base64 = require('base-64');
-
-const BASE_ENDPOINT = DEV_ENDPOINT;
 
 export default () => ({
   login: async (email, password) => {

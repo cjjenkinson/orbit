@@ -21,10 +21,7 @@
     ]
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "git add"
-    ]
+    "*.js": ["git add"]
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

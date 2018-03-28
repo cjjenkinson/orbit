@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Input } from 'antd';
-import CancelButton from '../CancelButton';
+import BackButton from '../BackButton';
 
-import * as workspaceActions from '../../store/Workspaces/actions';
+import * as entryActions from '../../store/Entries/actions';
 
 class AddEntry extends Component {
   constructor(props) {
@@ -25,23 +25,30 @@ class AddEntry extends Component {
     e.preventDefault();
     const { name } = this.state;
     const data = { name };
-    // dispatch to addWorkspace action
-    this.props.addWorkspace(data);
+
+    const { id } = this.props.match.params;
+    this.props.addEntry(id, data);
   };
 
   render() {
     return (
       <div className="container">
-        <CancelButton />
+        <BackButton>
+          Cancel
+        </BackButton>
         <div className="panel">
-          <p className="h4">New Entry</p>
-          <form onSubmit={this.onSubmit}>
-            <span>Name:</span>
-            <Input value={this.state.name} onChange={this.onNameChange} />
-            <button type="submit" className="button">
-              Next
-            </button>
-          </form>
+          <div className="panel-section">
+            <h2>New Entry</h2>
+          </div>
+          <div className="p-16">
+            <form onSubmit={this.onSubmit}>
+              <span>Name:</span>
+              <Input value={this.state.name} onChange={this.onNameChange} />
+              <button type="submit" className="button">
+                Add
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     );
@@ -49,11 +56,13 @@ class AddEntry extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addWorkspace: data => dispatch(workspaceActions.addWorkspace(data)),
+  addEntry: (id, data) => dispatch(entryActions.addEntry(id, data)),
 });
 
 AddEntry.propTypes = {
-  addWorkspace: PropTypes.func,
+  id: PropTypes.string,
+  match: PropTypes.object,
+  addEntry: PropTypes.func,
 };
 
 export default connect(null, mapDispatchToProps)(AddEntry);
