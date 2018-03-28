@@ -1,37 +1,27 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import get from 'lodash/get';
+import PropTypes from 'prop-types';
+import './PerformanceList.css';
 
 import PerformanceListItem from '../PerformanceListItem';
-import ProgressCircle from '../ProgressCircle';
 
-// const renderPerformance = (workspacesById, workspaceId) => (
-//   <PerformanceListItem
-//     key={workspaceId}
-//     workspace={get(workspacesById, workspaceId)}
-//   />
-// );
-
-const PerformanceList = () => (
-  // <div className="performance-list">
-  //   {workspacesByIdArray.map(id => renderWorkspaceById(workspacesById, id))}
-  // </div>
-  <div>
+const renderPerformance = data => (
+  data.map(performance => (
     <PerformanceListItem
-      enabler="FRONTEND"
-      performance="0.5"
+      key={performance.label}
+      enabler={performance.label}
+      score={performance.score}
     />
-    <ProgressCircle
-      strokeWidth="10"
-      sqSize="200"
-      percentage="25"
-    />
+  ))
+);
+
+const PerformanceList = ({ data }) => (
+  <div className="PerformanceList">
+    {renderPerformance(data)}
   </div>
 );
 
-// PerformanceList.propTypes = {
-//   workspacesById: PropTypes.object,
-//   workspacesByIdArray: PropTypes.array,
-// };
+PerformanceList.propTypes = {
+  data: PropTypes.array,
+};
 
 export default PerformanceList;
