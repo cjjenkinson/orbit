@@ -1,0 +1,10 @@
+.SnapshotSideBar {
+  width: 400px;
+  background-color: #24273c;
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  color: white;
+}
