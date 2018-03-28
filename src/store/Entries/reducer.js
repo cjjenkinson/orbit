@@ -32,6 +32,13 @@ export default function reduce(state = initialState, action = {}) {
       });
     case types.ENTRIES_ADD_SNAPSHOT_SUCCESS:
       return state.merge({
+        entriesById: {
+          ...state.entriesById,
+          [action.entryId]: {
+            ...state.entriesById[action.entryId],
+            snapshots: state.entriesById[action.entryId].snapshots.concat(action.snapshot),
+          },
+        },
         isFetching: false,
       });
     case types.ENTRIES_DELETE:
