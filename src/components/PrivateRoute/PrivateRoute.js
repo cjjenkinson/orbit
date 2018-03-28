@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import * as authSelectors from '../../store/Auth/selectors';
 
+import Alert from '../Alert';
 import AppHeader from '../AppHeader';
 
 const AuthRoute = ({
@@ -15,6 +16,7 @@ const AuthRoute = ({
     render={props =>
       (isAuthenticated && token ? (
         <div className="app">
+          <Alert />
           <AppHeader name="Codeworks" />
           <Component {...props} />
         </div>

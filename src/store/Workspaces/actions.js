@@ -3,6 +3,8 @@ import { push } from 'react-router-redux';
 import * as types from './actionTypes';
 import * as utils from '../../utils';
 
+import * as alertTypes from '../Alert/actionTypes';
+
 import WorkspaceService from '../../services/workspaces.service';
 
 // instantiate the Workspace service
@@ -59,16 +61,22 @@ export const addWorkspace = formData => async (dispatch) => {
     // normalise
     const workspaceById = utils.keyById([workspace], '_id');
 
-    console.log(workspaceById);
-
     dispatch({ type: types.WORKSPACES_ADD_SUCCESS, workspaceById });
     dispatch(push(`/workspace/${_id}`));
+    dispatch({
+      type: alertTypes.ALERT_SUCCESS,
+      messageContent: 'Succesfully created workspace!',
+    });
   } catch (err) {
     dispatch({
       type: types.WORKSPACES_ADD_FAILURE,
       error: err,
     });
     dispatch(push('/dashboard'));
+    dispatch({
+      type: alertTypes.ALERT_ERROR,
+      messageContent: 'Sorry, there was a problem creating the workspace. Please try again.',
+    });
   }
 };
 
