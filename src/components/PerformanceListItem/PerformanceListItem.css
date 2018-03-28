@@ -51,7 +51,7 @@ p {
   height: 10px;
   border-radius: 16px;
   background-color: #313653;
-  z-index: -1;
+  z-index: 20;
   position: relative;
 }
 
@@ -61,7 +61,7 @@ p {
   position: absolute;
   border-radius: 16px;
   background: #6bca65;
-  z-index: 20;
+  z-index: 200;
 }
 
 .performance-value {
