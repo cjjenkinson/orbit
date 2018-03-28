@@ -1,0 +1,30 @@
+.ProgressCircle {
+  padding: 30px;
+}
+
+.circle-background,
+.circle-progress {
+  fill: none;
+}
+
+.circle-background {
+  stroke: #ddd;
+}
+
+.circle-progress {
+  stroke: #4566d1;
+  stroke-linecap: butt;
+  stroke-linejoin: butt;
+}
+
+.circle-text {
+  font-family: Muli;
+  font-size: 10px;
+  fill: red;
+}
+
+.circle-score {
+  font-size: 3em;
+  font-weight: bold;
+  fill: red;
+}
