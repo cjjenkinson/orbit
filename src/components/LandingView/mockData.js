@@ -27,6 +27,10 @@ const mockData = [
     label: 'Open Minded',
     score: 0.9,
   },
+  {
+    label: 'Open Minded',
+    score: 0.9,
+  },
 ];
 
 export default mockData;
