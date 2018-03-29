@@ -46,6 +46,16 @@
 #dashboard-header-logo {
   width: 40px;
   margin-right: 8px;
+  -webkit-animation: rotation 2s;
+}
+
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
 }
 
 #dashboard-header-avatar {
