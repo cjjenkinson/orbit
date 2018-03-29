@@ -7,9 +7,11 @@ const PerformanceListItem = ({ score, enabler }) => {
   const strong = (score > 0.7) ? 'STRONG' : ((score < 0.5) ? 'WEAK' : 'AVERAGE');
   return (
     <div className="PerformanceListItem">
-      <strong>{strong}</strong>
-      <div className="performance">
-        <p>{enabler}</p>
+      <div className="performance-top">
+        <p className="enabler-label">{enabler}</p>
+        <strong className="stength-label">{strong}</strong>
+      </div>
+      <div className="performance-bottom">
         <div className="performance-bar">
           <span className="performance-fill" style={{ width }} />
         </div>

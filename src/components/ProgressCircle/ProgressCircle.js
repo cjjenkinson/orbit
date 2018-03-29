@@ -15,6 +15,7 @@ const ProgressCircle = ({ sqSize, strokeWidth, score }) => {
   return (
     <div className="ProgressCircle">
       <svg
+        className="circle-svg"
         width={sqSize}
         height={sqSize}
         viewBox={viewBox}
@@ -39,16 +40,16 @@ const ProgressCircle = ({ sqSize, strokeWidth, score }) => {
         <text
           className="circle-text"
           x="50%"
-          y="45%"
+          y="40%"
           dy=".3em"
           textAnchor="middle"
         >
-          Overall
+          Overall Score
         </text>
         <text
           className="circle-score"
           x="50%"
-          y="65%"
+          y="57%"
           dy=".3em"
           textAnchor="middle"
         >

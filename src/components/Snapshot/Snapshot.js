@@ -7,6 +7,7 @@ import { min } from 'd3-array';
 import { Line } from '@vx/shape';
 import { Point } from '@vx/point';
 import { scaleLinear } from '@vx/scale';
+import SnapshotPoint from './SnapshotPoint';
 import SnapshotLabel from './SnapshotLabel';
 import mockData from './mockData';
 import './Snapshot.css';
@@ -45,20 +46,22 @@ class Snapshot extends React.Component {
 
     // Margins & Levels
     const margin = {
-      top: 10,
-      left: 10,
-      right: 10,
-      bottom: 10,
+      top: 0,
+      left: 0,
+      right: 20,
+      bottom: 100,
     }
     const levels = 5;
 
     // Declare the height and width of the snapshot area inside the component
-    const xMax = this.props.width - margin.left - margin.right;
-    const yMax = this.props.height - margin.top - margin.bottom;
+    const xMax = (this.props.width - 150) - margin.left - margin.right;
+    const yMax = (this.props.height - 150) - margin.top - margin.bottom;
 
     // Create axis positions using data
     const radius = min([xMax, yMax]) / 2;
+    const lRadius = radius + 20;
     const points = calculatePoints(this.props.data.length, radius);
+    const lPoints = calculatePoints(this.props.data.length, lRadius);
 
     // Polulate x and y coordinates
     const y = d => d.score;
@@ -80,7 +83,7 @@ class Snapshot extends React.Component {
       pointsArray.splice(0, 1);
       return pointsArray;
     }
-    const newPointsArray = sortedPointsArray(points);
+    const newPointsArray = sortedPointsArray(lPoints);
 
     // Calculate the scale for score
     const yScale = scaleLinear({
@@ -94,6 +97,9 @@ class Snapshot extends React.Component {
       const label = labels[index];
       return [...accumulator, {...coordinates, label}];
     },[]);
+
+    const numberOflabels = 360 / scoreCoordinatesWithLabels.length;
+
 
     // Calculate Quadratic coordinates for curve
     function makePathCoordinates(coordinates) {
@@ -116,7 +122,7 @@ class Snapshot extends React.Component {
 
     // Render the component
     return (
-      <svg width={this.props.width} height={this.props.height} className="snapshot">
+      <svg width={this.props.width + 100} height={this.props.height + 50} className="snapshot">
         <rect fill="#ffffff" width={this.props.width} height={this.props.height} rx={14} />
         <Group top={this.props.height / 2 - margin.top} left={this.props.width / 2}>
           {levelNumbers.map((number, index) => (
@@ -160,12 +166,17 @@ class Snapshot extends React.Component {
             strokeWidth={2}
           />
           {scoreCoordinatesWithLabels.map((value, index) => (
-            <SnapshotLabel
+            <SnapshotPoint
               cx={value.x}
               cy={value.y}
+            />
+          ))}
+          {scoreCoordinatesWithLabels.map((value, index) => (
+            <SnapshotLabel
               lx={newPointsArray[index].x}
               ly={newPointsArray[index].y}
               label={value.label}
+              transform={`translate(0,0)`}
             />
           ))}
         </Group>

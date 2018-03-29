@@ -1,5 +1,12 @@
 .ProgressCircle {
   padding: 30px;
+  display: flex;
+  margin: auto;
+}
+
+.circle-svg {
+  flex: 1;
+  margin: auto;
 }
 
 .circle-background,
@@ -20,11 +27,11 @@
 .circle-text {
   font-family: Muli;
   font-size: 10px;
-  fill: red;
+  fill: rgb(255, 255, 255);
 }
 
 .circle-score {
   font-size: 3em;
   font-weight: bold;
-  fill: red;
+  fill: rgb(255, 255, 255);
 }
