@@ -1,7 +1,7 @@
 .PerformanceListItem {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: auto;
   margin: auto;
   border-radius: 5px;
   padding: 5px;
@@ -15,7 +15,6 @@
 .enabler-label {
   flex: 5;
   color: #313653;
-  width: 56px;
   height: 15px;
   font-size: 12px;
   font-weight: 600;
@@ -41,8 +40,8 @@
 }
 
 .performance-bar {
-  flex: 11;
-  width: 200px;
+  flex: 17;
+  max-width: 300px;
   height: 10px;
   border-radius: 16px;
   background-color: #313653;
@@ -61,7 +60,7 @@
 }
 
 .performance-value {
-  flex: 1;
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;

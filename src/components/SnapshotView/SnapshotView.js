@@ -35,7 +35,7 @@ class SnapshotView extends Component {
               <Row>
                 <Col span={6}>
                   <div className="snapshot-sidebar">
-                    <BackButton>
+                    <BackButton className="back-button-container">
                       <h4 className="back-button"><Icon type="left" />Back to Snapshots</h4>
                     </BackButton>
                     <SnapshotSideBar data={snapshotData} />
@@ -58,7 +58,7 @@ class SnapshotView extends Component {
                         <div className="snapshot-radar">
                           <Snapshot data={snapshotData} width={650} height={650} />
                         </div>
-                        <div className="snapshot-header">
+                        <div className="snapshot-feedback-header">
                           <h3>Priorities:</h3>
                         </div>
                         <div className="snapshot-feedback">

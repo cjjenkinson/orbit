@@ -14,13 +14,17 @@ const SnapshotSideBar = ({ data }) => {
   return (
     <div className="snapshot-side-bar">
       <p className="sidebar-title">Core Overview:</p>
-      <ProgressCircle
-        strokeWidth="10"
-        sqSize="200"
-        score={average}
-      />
+      <div className="progress-circle-container">
+        <ProgressCircle
+          strokeWidth="10"
+          sqSize="200"
+          score={average}
+        />
+      </div>
       <p className="sidebar-title">Core Overview:</p>
-      <PerformanceList data={data} />
+      <div className="performance-list-container">
+        <PerformanceList data={data} />
+      </div>
     </div>
   );
 };

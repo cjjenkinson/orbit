@@ -9,7 +9,6 @@ import { Point } from '@vx/point';
 import { scaleLinear } from '@vx/scale';
 import SnapshotPoint from './SnapshotPoint';
 import SnapshotLabel from './SnapshotLabel';
-import mockData from './mockData';
 import './Snapshot.css';
 
 // Calculates Points on each Axis
@@ -47,15 +46,17 @@ class Snapshot extends React.Component {
     // Margins & Levels
     const margin = {
       top: 0,
-      left: 0,
-      right: 20,
-      bottom: 100,
+      left: 30,
+      right: 0,
+      bottom: 0,
     }
     const levels = 5;
 
     // Declare the height and width of the snapshot area inside the component
-    const xMax = (this.props.width - 150) - margin.left - margin.right;
-    const yMax = (this.props.height - 150) - margin.top - margin.bottom;
+    const xMax = (this.props.width - 200)
+     // - margin.left - margin.right;
+    const yMax = (this.props.height - 200)
+    // - margin.top - margin.bottom;
 
     // Create axis positions using data
     const radius = min([xMax, yMax]) / 2;
@@ -122,9 +123,13 @@ class Snapshot extends React.Component {
 
     // Render the component
     return (
-      <svg width={this.props.width + 100} height={this.props.height + 50} className="snapshot">
-        <rect fill="#ffffff" width={this.props.width} height={this.props.height} rx={14} />
-        <Group top={this.props.height / 2 - margin.top} left={this.props.width / 2}>
+      <svg
+        width={this.props.width}
+        height={this.props.height}
+        className="snapshot"
+        viewBox="0 0 700 600"
+      >
+        <Group top={this.props.height / 2.2} left={this.props.width / 2 + margin.left}>
           {levelNumbers.map((number, index) => (
             <text
               key={`level-${index + 1}`}
