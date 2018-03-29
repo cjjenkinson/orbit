@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 
-import { Row, Col, Icon, Popconfirm, message } from 'antd';
+import { Row, Col, Icon, Popconfirm } from 'antd';
 
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
 import * as workspaceActions from '../../store/Workspaces/actions';
@@ -26,7 +26,6 @@ class WorkspaceView extends Component {
 
   confirm = () => {
     this.props.deleteWorkspace(this.props.workspace._id);
-    message.info('Workspace succesfully deleted.');
   };
 
   renderSubHeader = () => {

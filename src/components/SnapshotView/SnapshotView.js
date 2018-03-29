@@ -19,7 +19,6 @@ class SnapshotView extends Component {
   render() {
     const { snapshot } = this.props;
     const snapshotData = createMutableData(snapshot.enablers);
-    console.log(snapshotData);
     return (
       <div className="viewer">
         <div className="flex">
