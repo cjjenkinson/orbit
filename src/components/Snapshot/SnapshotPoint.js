@@ -10,7 +10,7 @@ class SnapshotPoint extends React.Component {
         cx={this.props.cx}
         cy={this.props.cy}
         r={3}
-        fill="#52247f"
+        fill={this.props.fill}
         className="dots"
       ></circle>
     )
@@ -20,6 +20,7 @@ class SnapshotPoint extends React.Component {
 SnapshotPoint.propTypes = {
   cx: PropTypes.number,
   cy: PropTypes.number,
+  fill: PropTypes.string,
 };
 
 export default SnapshotPoint;

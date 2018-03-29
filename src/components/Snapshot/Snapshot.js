@@ -185,6 +185,7 @@ class Snapshot extends React.Component {
             <SnapshotPoint
               cx={value.x}
               cy={value.y}
+              fill="#52247f"
             />
           ))}
           {scoreCoordinatesWithLabels.map((value, index) => (
@@ -206,6 +207,7 @@ class Snapshot extends React.Component {
             <SnapshotPoint
               cx={value.x}
               cy={value.y}
+              fill="#005929"
             />
           ))}
           {previousScoreCoordinatesWithLabels.map((value, index) => (

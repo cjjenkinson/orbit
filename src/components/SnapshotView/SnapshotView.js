@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,11 +27,11 @@ class SnapshotView extends Component {
   renderPreviousSnapshot = (id) => {
     const { snapshots } = this.props.entry;
     if (snapshots.length <= 1) {
-      return null;
+      return 1;
     }
     return snapshots.reduce((acc, snapshot, index) => {
       if (snapshot._id === id) {
-        acc + index; // eslint-disable-line no-unused-expressions
+        return acc + index; // eslint-disable-line no-unused-expressions
       }
       return acc;
     }, 0);
@@ -43,7 +44,12 @@ class SnapshotView extends Component {
     const { snapshots } = this.props.entry;
     const snapshotData = createMutableData(snapshot.enablers);
     const position = this.renderPreviousSnapshot(_id);
-    const previousData = snapshots[position];
+    let previousData;
+    if (position === 0) {
+      previousData = snapshots[position];
+    } else {
+      previousData = snapshots[position - 1];
+    }
     return (
       <div>
         <div className="viewer">
@@ -55,7 +61,7 @@ class SnapshotView extends Component {
                     <BackButton className="back-button-container">
                       <h4 className="back-button"><Icon type="left" />Back to Snapshots</h4>
                     </BackButton>
-                    <SnapshotSideBar data={snapshotData} previousData={previousData}/>
+                    <SnapshotSideBar data={snapshotData} previousData={previousData.enablers} />
                   </div>
                 </Col>
                 <Col span={18}>
@@ -121,3 +127,4 @@ SnapshotView.propTypes = {
 };
 
 export default connect(mapStateToProps, null)(SnapshotView);
+/* eslint-disable */
