@@ -64,5 +64,5 @@ export const register = formValues => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   await authService.logout();
-  dispatch(push('/login'));
+  dispatch(push('/'));
 };

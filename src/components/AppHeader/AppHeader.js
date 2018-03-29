@@ -48,7 +48,9 @@ class AppHeader extends Component {
             <Col span={8}>
               <div className="app-header-nav">
                 <Link to="/">
-                  <img src={OrbitLogo} alt="Orbit Logo" id="dashboard-header-logo" />
+                  <div className="dashboard-header-logo">
+                    <img src={OrbitLogo} alt="Orbit Logo" id="dashboard-header-logo" />
+                  </div>
                 </Link>
               </div>
             </Col>
