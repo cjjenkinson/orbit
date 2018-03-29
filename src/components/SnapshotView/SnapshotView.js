@@ -23,10 +23,27 @@ class SnapshotView extends Component {
     return moment(snapshot.date).format('MMMM Do YYYY');
   }
 
+  renderPreviousSnapshot = (id) => {
+    const { snapshots } = this.props.entry;
+    if (snapshots.length <= 1) {
+      return null;
+    }
+    return snapshots.reduce((acc, snapshot, index) => {
+      if (snapshot._id === id) {
+        acc + index; // eslint-disable-line no-unused-expressions
+      }
+      return acc;
+    }, 0);
+  }
+
   render() {
     const { name } = this.props.entry;
+    const { _id } = this.props.snapshot;
     const { snapshot } = this.props;
+    const { snapshots } = this.props.entry;
     const snapshotData = createMutableData(snapshot.enablers);
+    const position = this.renderPreviousSnapshot(_id);
+    const previousData = snapshots[position];
     return (
       <div>
         <div className="viewer">
@@ -38,7 +55,7 @@ class SnapshotView extends Component {
                     <BackButton className="back-button-container">
                       <h4 className="back-button"><Icon type="left" />Back to Snapshots</h4>
                     </BackButton>
-                    <SnapshotSideBar data={snapshotData} />
+                    <SnapshotSideBar data={snapshotData} previousData={previousData}/>
                   </div>
                 </Col>
                 <Col span={18}>
@@ -56,7 +73,12 @@ class SnapshotView extends Component {
                           <h3>Core Progress:</h3>
                         </div>
                         <div className="snapshot-radar">
-                          <Snapshot data={snapshotData} width={650} height={650} />
+                          <Snapshot
+                            data={snapshotData}
+                            previousData={previousData.enablers}
+                            width={650}
+                            height={650}
+                          />
                         </div>
                         <div className="snapshot-feedback-header">
                           <h3>Priorities:</h3>

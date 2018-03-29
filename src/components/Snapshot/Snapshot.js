@@ -94,7 +94,12 @@ class Snapshot extends React.Component {
 
     // Calculate to coordinates with and without labels
     const scoreCoordinates = calculateCoordinates(this.props.data, yScale, y);
+    const previousScoreCoordinates = calculateCoordinates(this.props.previousData, yScale, y);
     const scoreCoordinatesWithLabels = scoreCoordinates.reduce((accumulator, coordinates, index) => {
+      const label = labels[index];
+      return [...accumulator, {...coordinates, label}];
+    },[]);
+    const previousScoreCoordinatesWithLabels = previousScoreCoordinates.reduce((accumulator, coordinates, index) => {
       const label = labels[index];
       return [...accumulator, {...coordinates, label}];
     },[]);
@@ -110,15 +115,21 @@ class Snapshot extends React.Component {
       const masterCoordinate = 'M';
       const quadraticCoordinate = 'Q 0,0';
       extendedCoordinatesArray.splice(0, 0, masterCoordinate);
-      const numberOfIterations = extendedCoordinatesArray.length - 2;
-      for (let i = 1; i <= numberOfIterations; i += 1) {
-        extendedCoordinatesArray.splice(i * 2, 0, quadraticCoordinate);
-      }
+      // const numberOfIterations = extendedCoordinatesArray.length - 2;
+      // for (let i = 1; i <= numberOfIterations; i += 1) {
+      //   extendedCoordinatesArray.splice(i * 2, 0, quadraticCoordinate);
+      // }
       return extendedCoordinatesArray.join(' ');
+    }
+
+    //Comparison with previous snapshot
+    function makePreviousSnapshot(previous) {
+
     }
 
     // Utilities
     const pathCoordinates = makePathCoordinates(scoreCoordinates);
+    const previousPathCoordinates = makePathCoordinates(previousScoreCoordinates)
     const levelNumbers = [2, 4, 6, 8];
 
     // Render the component
@@ -177,6 +188,27 @@ class Snapshot extends React.Component {
             />
           ))}
           {scoreCoordinatesWithLabels.map((value, index) => (
+            <SnapshotLabel
+              lx={newPointsArray[index].x}
+              ly={newPointsArray[index].y}
+              label={value.label}
+              transform={`translate(0,0)`}
+            />
+          ))}
+          <path
+            d={previousPathCoordinates}
+            fill="rgba(96, 247, 166, 1)"
+            fillOpacity="0.1"
+            stroke="#08bf5c"
+            strokeWidth={2}
+          />
+          {previousScoreCoordinatesWithLabels.map((value, index) => (
+            <SnapshotPoint
+              cx={value.x}
+              cy={value.y}
+            />
+          ))}
+          {previousScoreCoordinatesWithLabels.map((value, index) => (
             <SnapshotLabel
               lx={newPointsArray[index].x}
               ly={newPointsArray[index].y}
