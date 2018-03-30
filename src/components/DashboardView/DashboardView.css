@@ -1,3 +1,7 @@
+.DashboardView {
+  padding-top: 50px;
+}
+
 .dashboard-actions {
   display: block;
   align-items: center;
