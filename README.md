@@ -26,21 +26,21 @@ Orbit is an open-source data visualisation tool that allows businesses, sports t
 
 ## Screenshots:
 <div>
-    <img width="960px" height="480" src="./src/assets/screenshots/home.png"></img>
+    <img width="960px" height="470" src="./src/assets/screenshots/home.png"></img>
   </div>
 
   <div>
-   <img width="960px" height="480" src="./src/assets/screenshots/dashboard.png"></img>
+   <img width="960px" height="470" src="./src/assets/screenshots/dashboard.png"></img>
   </div>
 
   <div>
-    <img width="960px" height="480" src="./src/assets/screenshots/entry.png"></img>
+    <img width="960px" height="470" src="./src/assets/screenshots/entry.png"></img>
   </div>
 
   <div>
-    <img width="960px" height="480" src="./src/assets/screenshots/snapshot.png"></img>
+    <img width="960px" height="470" src="./src/assets/screenshots/snapshot.png"></img>
   </div>
 
   <div>
-    <img width="960px" height="480" src="./src/assets/screenshots/snapshot-view.png"></img>
+    <img width="960px" height="470" src="./src/assets/screenshots/snapshot-view.png"></img>
   </div>
