@@ -7,8 +7,8 @@ import { min } from 'd3-array';
 import { Line } from '@vx/shape';
 import { Point } from '@vx/point';
 import { scaleLinear } from '@vx/scale';
+import SnapshotPoint from './SnapshotPoint';
 import SnapshotLabel from './SnapshotLabel';
-import mockData from './mockData';
 import './Snapshot.css';
 
 // Calculates Points on each Axis
@@ -45,20 +45,24 @@ class Snapshot extends React.Component {
 
     // Margins & Levels
     const margin = {
-      top: 10,
-      left: 10,
-      right: 10,
-      bottom: 10,
+      top: 0,
+      left: 30,
+      right: 0,
+      bottom: 0,
     }
     const levels = 5;
 
     // Declare the height and width of the snapshot area inside the component
-    const xMax = this.props.width - margin.left - margin.right;
-    const yMax = this.props.height - margin.top - margin.bottom;
+    const xMax = (this.props.width - 200)
+     // - margin.left - margin.right;
+    const yMax = (this.props.height - 200)
+    // - margin.top - margin.bottom;
 
     // Create axis positions using data
     const radius = min([xMax, yMax]) / 2;
+    const lRadius = radius + 20;
     const points = calculatePoints(this.props.data.length, radius);
+    const lPoints = calculatePoints(this.props.data.length, lRadius);
 
     // Polulate x and y coordinates
     const y = d => d.score;
@@ -80,7 +84,7 @@ class Snapshot extends React.Component {
       pointsArray.splice(0, 1);
       return pointsArray;
     }
-    const newPointsArray = sortedPointsArray(points);
+    const newPointsArray = sortedPointsArray(lPoints);
 
     // Calculate the scale for score
     const yScale = scaleLinear({
@@ -90,10 +94,18 @@ class Snapshot extends React.Component {
 
     // Calculate to coordinates with and without labels
     const scoreCoordinates = calculateCoordinates(this.props.data, yScale, y);
+    const previousScoreCoordinates = calculateCoordinates(this.props.previousData, yScale, y);
     const scoreCoordinatesWithLabels = scoreCoordinates.reduce((accumulator, coordinates, index) => {
       const label = labels[index];
       return [...accumulator, {...coordinates, label}];
     },[]);
+    const previousScoreCoordinatesWithLabels = previousScoreCoordinates.reduce((accumulator, coordinates, index) => {
+      const label = labels[index];
+      return [...accumulator, {...coordinates, label}];
+    },[]);
+
+    const numberOflabels = 360 / scoreCoordinatesWithLabels.length;
+
 
     // Calculate Quadratic coordinates for curve
     function makePathCoordinates(coordinates) {
@@ -103,22 +115,32 @@ class Snapshot extends React.Component {
       const masterCoordinate = 'M';
       const quadraticCoordinate = 'Q 0,0';
       extendedCoordinatesArray.splice(0, 0, masterCoordinate);
-      const numberOfIterations = extendedCoordinatesArray.length - 2;
-      for (let i = 1; i <= numberOfIterations; i += 1) {
-        extendedCoordinatesArray.splice(i * 2, 0, quadraticCoordinate);
-      }
+      // const numberOfIterations = extendedCoordinatesArray.length - 2;
+      // for (let i = 1; i <= numberOfIterations; i += 1) {
+      //   extendedCoordinatesArray.splice(i * 2, 0, quadraticCoordinate);
+      // }
       return extendedCoordinatesArray.join(' ');
+    }
+
+    //Comparison with previous snapshot
+    function makePreviousSnapshot(previous) {
+
     }
 
     // Utilities
     const pathCoordinates = makePathCoordinates(scoreCoordinates);
+    const previousPathCoordinates = makePathCoordinates(previousScoreCoordinates)
     const levelNumbers = [2, 4, 6, 8];
 
     // Render the component
     return (
-      <svg width={this.props.width} height={this.props.height} className="snapshot">
-        <rect fill="#ffffff" width={this.props.width} height={this.props.height} rx={14} />
-        <Group top={this.props.height / 2 - margin.top} left={this.props.width / 2}>
+      <svg
+        width={this.props.width}
+        height={this.props.height}
+        className="snapshot"
+        viewBox="0 0 700 600"
+      >
+        <Group top={this.props.height / 2.2} left={this.props.width / 2 + margin.left}>
           {levelNumbers.map((number, index) => (
             <text
               key={`level-${index + 1}`}
@@ -160,12 +182,40 @@ class Snapshot extends React.Component {
             strokeWidth={2}
           />
           {scoreCoordinatesWithLabels.map((value, index) => (
-            <SnapshotLabel
+            <SnapshotPoint
               cx={value.x}
               cy={value.y}
+              fill="#52247f"
+            />
+          ))}
+          {scoreCoordinatesWithLabels.map((value, index) => (
+            <SnapshotLabel
               lx={newPointsArray[index].x}
               ly={newPointsArray[index].y}
               label={value.label}
+              transform={`translate(0,0)`}
+            />
+          ))}
+          <path
+            d={previousPathCoordinates}
+            fill="rgba(96, 247, 166, 1)"
+            fillOpacity="0.1"
+            stroke="#08bf5c"
+            strokeWidth={2}
+          />
+          {previousScoreCoordinatesWithLabels.map((value, index) => (
+            <SnapshotPoint
+              cx={value.x}
+              cy={value.y}
+              fill="#005929"
+            />
+          ))}
+          {previousScoreCoordinatesWithLabels.map((value, index) => (
+            <SnapshotLabel
+              lx={newPointsArray[index].x}
+              ly={newPointsArray[index].y}
+              label={value.label}
+              transform={`translate(0,0)`}
             />
           ))}
         </Group>

@@ -1,11 +1,8 @@
 .snapshot {
   flex: 1;
-}
-
-.labels {
-  font-size: 12;
-}
-
-.dots {
-  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  vertical-align: middle;
+  overflow: hidden;
 }

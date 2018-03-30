@@ -1,58 +1,53 @@
 .PerformanceListItem {
   display: flex;
   flex-direction: column;
-  width: 290px;
-  margin: 10px;
+  width: auto;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
 }
 
-strong {
-  align-self: flex-end;
+.performance-top {
+  margin-top: 10px;
   display: flex;
+}
+
+.enabler-label {
+  flex: 5;
+  color: #313653;
+  height: 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stength-label {
+  display: flex;
+  flex: 1.5;
   justify-content: center;
-  align-items: center;
-  width: 50px;
+  padding-top: 2px;
   height: 16px;
   border-radius: 8px;
   background-color: #97a0de;
-  font-family: Muli;
   font-size: 8px;
   font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: white;
-  margin-right: 55px;
-  padding-top: 2px;
 }
 
-.performance {
+
+.performance-bottom {
   display: flex;
   align-items: center;
 }
 
-p {
-  width: 56px;
-  height: 15px;
-  font-family: Muli;
-  font-size: 10px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  margin: 5px 15px;
-  padding-top: 2px;
-}
-
 .performance-bar {
-  width: 152px;
+  flex: 17;
+  max-width: 300px;
   height: 10px;
   border-radius: 16px;
   background-color: #313653;
   z-index: 20;
   position: relative;
+  margin-right: 5px;
 }
 
 .performance-fill {
@@ -60,11 +55,12 @@ p {
   height: 10px;
   position: absolute;
   border-radius: 16px;
-  background: #6bca65;
+  background: rgb(0, 198, 79);
   z-index: 200;
 }
 
 .performance-value {
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,14 +68,7 @@ p {
   height: 18px;
   border-radius: 50%;
   background-color: #97a0de;
-  font-family: Muli;
   font-size: 10px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
   color: white;
   margin-left: 4px;
 }

@@ -1,4 +1,12 @@
 .PerformanceList {
   overflow-y: scroll;
-  height: 500px;
+  max-height: 500px;
+  max-width: 350px;
+  height: auto;
+  width: auto;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  border: 1px solid #d5dee6;
+  box-shadow: inset 2px 2px 16px -6px rgba(189,189,189,1);
 }
