@@ -52,15 +52,17 @@ class DashboardView extends Component {
   render() {
     const { isFetching } = this.props;
     return (
-      <div className="container">
-        {isFetching ? (
-          this.renderLoading()
-        ) : (
-          <div>
-            {this.renderActions()}
-            {this.renderWorkspaces()}
-          </div>
-        )}
+      <div className="DashboardView">
+        <div className="container">
+          {isFetching ? (
+            this.renderLoading()
+          ) : (
+            <div>
+              {this.renderActions()}
+              {this.renderWorkspaces()}
+            </div>
+          )}
+        </div>
       </div>
     );
   }
