@@ -37,6 +37,20 @@ class SnapshotView extends Component {
     }, 0);
   }
 
+  renderPriorities = () => {
+    const { snapshot } = this.props;
+    const length = snapshot.enablers.length;
+    const random = Math.floor(Math.random() * Math.floor(length));
+    return random;
+  }
+
+  findAverage = (scoreData) => {
+    const overall = scoreData.reduce((accumulator, currentValue) => (
+      accumulator + currentValue.score), 0);
+    const average = Math.round((overall / scoreData.length) * 100) / 10;
+    return average;
+  };
+
   render() {
     const { name } = this.props.entry;
     const { _id } = this.props.snapshot;
@@ -50,6 +64,12 @@ class SnapshotView extends Component {
     } else {
       previousData = snapshots[position - 1];
     }
+    const priorityOne = snapshot.enablers[this.renderPriorities()];
+    const priorityTwo = snapshot.enablers[this.renderPriorities()];
+    const priorityThree = snapshot.enablers[this.renderPriorities()];
+    const previous = this.findAverage(previousData.enablers);
+    const overall = this.findAverage(snapshotData);
+    const difference = overall - previous;
     return (
       <div>
         <div className="viewer">
@@ -76,7 +96,16 @@ class SnapshotView extends Component {
                       </div>
                       <div className="snapshot-performance">
                         <div className="snapshot-header">
-                          <h3>Core Progress:</h3>
+                          <h3 className="snapshot-header-title">Core Progress:</h3>
+                          <div className="snapshot-legend">
+                            <h3 className="legend-header">Legend:</h3>
+                            <div className="legend-helper">
+                              <h5>Current Score<div className="legend-current"></div></h5>
+                            </div>
+                            <div className="legend-helper">
+                              <h5>Previous Score<div className="legend-previous"></div></h5>
+                            </div>
+                          </div>
                         </div>
                         <div className="snapshot-radar">
                           <Snapshot
@@ -90,12 +119,11 @@ class SnapshotView extends Component {
                           <h3>Priorities:</h3>
                         </div>
                         <div className="snapshot-feedback">
-                          <ul>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
+                          <ul className="feedback-list">
+                            <li>Great, your overall score has improved by <b className="feedback-bold">{difference.toFixed(2)}</b></li>
+                            <li>Improve <b className="feedback-bold">{priorityOne.label}</b> to make the biggest increase to your overall score</li>
+                            <li>Your most improved skill is <b className="feedback-bold">{priorityTwo.label}</b>, keep it up!</li>
+                            <li>You should focus more time on <b className="feedback-bold">{priorityThree.label}</b> to ensure you keep improving overall performance at your current rate</li>
                           </ul>
                         </div>
                       </div>

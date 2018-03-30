@@ -23,7 +23,7 @@ const SnapshotSideBar = ({ data, previousData }) => (
         previousScore={findAverage(previousData)}
       />
     </div>
-    <p className="sidebar-title">Core Overview:</p>
+    <p className="sidebar-title">Core Scores:</p>
     <div className="performance-list-container">
       <PerformanceList data={data} />
     </div>
