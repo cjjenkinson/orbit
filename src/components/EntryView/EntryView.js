@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Row, Col, Icon, Popconfirm, message } from 'antd';
+import { Row, Col, Icon, Popconfirm } from 'antd';
 
 import * as entrySelectors from '../../store/Entries/selectors';
 import * as entryActions from '../../store/Entries/actions';
@@ -15,7 +15,6 @@ class EntryView extends Component {
   confirm = () => {
     const { deleteEntry, workspaceId, entry } = this.props;
     deleteEntry(workspaceId, entry._id);
-    message.info('Entry succesfully deleted.');
   };
 
   renderSubHeader = () => {
