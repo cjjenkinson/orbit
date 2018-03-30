@@ -1,34 +1,34 @@
 const mockData = [
   {
-    label: 'Positive Attitude',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Productivity',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Autonomy',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Communication',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Teamwork',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Self Improving',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Open Minded',
+    label: '',
     score: 0.9,
   },
   {
-    label: 'Open Minded',
+    label: '',
     score: 0.9,
   },
 ];

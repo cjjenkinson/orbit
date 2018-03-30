@@ -75,9 +75,10 @@ class LandingView extends Component {
             <div className="landing-snapshot">
               <div>
                 <Snapshot
-                  height="600"
-                  width="600"
+                  height={600}
+                  width={600}
                   data={mockData}
+                  previousData={mockData}
                 />
               </div>
             </div>
