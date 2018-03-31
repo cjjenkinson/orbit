@@ -1,84 +1,46 @@
-# React Boilerplate 2018
+<div align="center">
+ <img width="200" height="200" src="./src/assets/images/orbit_logo@2x.png"></img>
+</div>
 
-A lightweight starter boilerplate used to bootstrap React applications using functional CSS (CSS Next) features.
+# Orbit
 
-Uses Babel, Webpack and configured with [Airbnb](https://github.com/airbnb/javascript/tree/master/react) eslint and prettier out of the box.
+## What is Orbit?
+Orbit is an open-source data visualisation tool that allows businesses, sports teams and educational institutions track, measure and improve performance. Built using cutting-edge technologies, Orbit provides a birds-eye-view on performance metrics in a way that is easy to understand and digest. Students, players and employees are presented with key changes they can make to improve the performance through a complex neural networks, helping users focus their time more effectively and efficiently.
 
-File structure:
+## Tech Stack:
 
-```md
-- dist
-  -- index.html
-- src
-  -- components
-  -- containers
-     -- App.css
-     -- App.js
-     -- App.test.js
-  -- static
-  -- utils
-  -- index.js
-- .eslintrc
-- postcss.config.js
-- prettierrc
-- package.json
-- webpack.config.js
-- .env
-```
-## File Structure
+### Front-end:
+* React
+* Redux
+* Webpack
+* D3.js
+* VX.js
+* PostCSS
 
-Learn more about [Presentational & Container Components](|https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+### Back-end: (https://github.com/cjjenkinson/orbit-server)
+* Koa
+* MongoDB
+* MongoLab
+* Travis CI
+* Heroku
 
-- Components: presentational components, recieve data via props and are concerned with presentation only
-- Containers: container components, provide data and behaviour and are concerned with how things work
-- Static: public image assets, fonts and other related static assets
-- Utils: helpers, formatters and a place to store useful tools
-- index.js: renders your application from the parent component e.g App
+## Screenshots:
+<div>
+    <img width="960px" height="460" src="./src/assets/screenshots/home.png"></img>
+  </div>
 
-## ESLint & Style Guide (Airbnb)
+  <div>
+   <img width="960px" height="460" src="./src/assets/screenshots/dashboard.png"></img>
+  </div>
 
-*The jsx file name extensions rule has been turned off to avoid errors that prevent rendering HTML within React components.
+  <div>
+    <img width="960px" height="460" src="./src/assets/screenshots/entry.png"></img>
+  </div>
 
-```json
-{
-  "env": {
-      "browser": true,
-      "node": true
-  },
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-  }
-}
-```
+  <div>
+    <img width="960px" height="460" src="./src/assets/screenshots/snapshot.png"></img>
+  </div>
 
-## Environment Variables
-
-Define your environment variables using .env file.
-
-```shell
-touch .env
-```
-
-As a starter an API_ENDPOINT variable has been defined in the Webpack config. Adding additional environment variable is as simple as defining the constant name and stringifying the variable in your .env file.
-
-```javascript
-new webpack.DefinePlugin({
-    API_ENDPOINT: JSON.stringify(process.env.API_ENDPOINT),
-    // e.g SERVICE_API_KEY: JSON.stringify(process.env.SERVICE_API_KEY)
-}),
-```
-By defining environment variables inside webpack you'll be able to reference them without defining process.env everytime:
-
-```javascript
-fetch(API_ENDPOINT + '/list')
-  .then(response => response.json())
-  .then(json => console.log(json))
-```
-
-## Functional CSS
-
-This boilerplate makes use of functional CSS using CSS Next features and the [basscss library](http://basscss.com/)
-
-
+  <div>
+    <img width="960px" height="460" src="./src/assets/screenshots/snapshot-view.png"></img>
+  </div>

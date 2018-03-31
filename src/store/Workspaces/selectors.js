@@ -20,3 +20,5 @@ export const getWorkspace = (state, id) => {
 
   return workspace;
 };
+
+export const getEnablers = (state, id) => state.workspaces.workspacesById[id].template.enablers;

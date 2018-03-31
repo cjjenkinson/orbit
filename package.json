@@ -14,10 +14,16 @@
   "author": "",
   "license": "MIT",
   "babel": {
-    "presets": ["env", "react", "stage-0"]
+    "presets": [
+      "env",
+      "react",
+      "stage-0"
+    ]
   },
   "lint-staged": {
-    "*.js": ["npm run lint", "git add"]
+    "*.js": [
+      "git add"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

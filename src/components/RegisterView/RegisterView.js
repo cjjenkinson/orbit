@@ -25,7 +25,7 @@ class RegisterView extends Component {
     return (
       <div className="public-landing">
         <div className="container">
-          <div className="panel panel-sm">
+          <div className="panel panel-sm p-16">
             <h2>Sign Up</h2>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <FormItem>

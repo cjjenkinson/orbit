@@ -47,7 +47,11 @@ class AppHeader extends Component {
             </Col>
             <Col span={8}>
               <div className="app-header-nav">
-                <img src={OrbitLogo} alt="Orbit Logo" id="dashboard-header-logo" />
+                <Link to="/">
+                  <div className="dashboard-header-logo">
+                    <img src={OrbitLogo} alt="Orbit Logo" id="dashboard-header-logo" />
+                  </div>
+                </Link>
               </div>
             </Col>
             <Col span={8}>{this.renderUserDropdown()}</Col>

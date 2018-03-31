@@ -24,8 +24,8 @@ export default () => ({
     return entry;
   },
 
-  deleteWorkspace: async (id) => {
-    const urlWithId = `${url}/${id}`;
+  deleteEntry: async (workspaceId, id) => {
+    const urlWithId = `${url}/${workspaceId}/${id}`;
     const response = await api.fetch(urlWithId, {
       method: 'DELETE',
     });

@@ -1,0 +1,58 @@
+.ProgressCircle {
+  padding: 25px;
+  display: flex;
+  margin: auto;
+}
+
+.circle-svg {
+  flex: 1;
+  margin: auto;
+}
+
+.circle-background,
+.circle-progress {
+  fill: none;
+}
+
+.circle-background {
+  stroke: #ddd;
+}
+
+.circle-previous-background {
+  stroke: #ddd;
+}
+
+.circle-progress {
+  stroke: #4566d1;
+  stroke-linecap: round;
+  stroke-linejoin: butt;
+}
+
+.circle-previous-progress {
+  stroke: rgb(0, 198, 79);
+  stroke-linecap: round;
+  stroke-linejoin: butt;
+}
+
+.circle-text {
+  font-family: Muli;
+  font-size: 12px;
+  fill: rgb(255, 255, 255);
+}
+
+.circle-score {
+  font-size: 3em;
+  font-weight: bold;
+  fill: rgba(116, 96, 246, 1);
+}
+
+.circle-previous-text {
+  font-family: Muli;
+  font-size: 10px;
+  fill: rgb(255, 255, 255);
+}
+
+.circle-previous-score {
+  font-size: 1.5em;
+  fill: rgb(0, 198, 79);
+}

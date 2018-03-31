@@ -1,0 +1,74 @@
+.PerformanceListItem {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.performance-top {
+  margin-top: 10px;
+  display: flex;
+}
+
+.enabler-label {
+  flex: 5;
+  color: #313653;
+  height: 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stength-label {
+  display: flex;
+  flex: 1.5;
+  justify-content: center;
+  padding-top: 2px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: #97a0de;
+  font-size: 8px;
+  font-weight: 600;
+  color: white;
+}
+
+
+.performance-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.performance-bar {
+  flex: 17;
+  max-width: 300px;
+  height: 10px;
+  border-radius: 16px;
+  background-color: #313653;
+  z-index: 20;
+  position: relative;
+  margin-right: 5px;
+}
+
+.performance-fill {
+  width: 100px;
+  height: 10px;
+  position: absolute;
+  border-radius: 16px;
+  background: rgb(0, 198, 79);
+  z-index: 200;
+}
+
+.performance-value {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #97a0de;
+  font-size: 10px;
+  color: white;
+  margin-left: 4px;
+}

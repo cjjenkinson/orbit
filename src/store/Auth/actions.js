@@ -23,8 +23,8 @@ export const login = formValues => async (dispatch) => {
 
     const user = await authService.login(email, password);
 
-    if (!user) {
-      throw new Error('Failed to login');
+    if (user.errors) {
+      throw new Error(user.errors);
     }
 
     const { token } = user;
@@ -45,9 +45,9 @@ export const register = formValues => async (dispatch) => {
 
     const user = await authService.register(formValues);
 
-    // if (!user) {
-    //   throw new Error('Server: Failed to register new user');
-    // }
+    if (user.errors) {
+      throw new Error(user.errors);
+    }
 
     const { token } = user;
 
@@ -64,5 +64,5 @@ export const register = formValues => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   dispatch({ type: types.LOGOUT });
   await authService.logout();
-  dispatch(push('/login'));
+  dispatch(push('/'));
 };

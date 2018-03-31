@@ -20,3 +20,5 @@ export const getEntry = (state, id) => {
 
   return entry;
 };
+
+export const getSnapshots = (state, id) => state.entries.entriesById[id].snapshots;

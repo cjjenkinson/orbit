@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 
-import { Row, Col, Icon, Popconfirm, message } from 'antd';
+import { Row, Col, Icon, Popconfirm } from 'antd';
 
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
 import * as workspaceActions from '../../store/Workspaces/actions';
@@ -26,7 +26,6 @@ class WorkspaceView extends Component {
 
   confirm = () => {
     this.props.deleteWorkspace(this.props.workspace._id);
-    message.info('Workspace succesfully deleted.');
   };
 
   renderSubHeader = () => {
@@ -62,9 +61,6 @@ class WorkspaceView extends Component {
             <Row>
               <div className="panel-section">
                 <h3>Template</h3>
-                <Link to={`${workspace._id}/add`} className="right">
-                  Edit
-                </Link>
               </div>
               <div className="panel-section">
                 <h4>Reference</h4>
@@ -88,9 +84,19 @@ class WorkspaceView extends Component {
 
   renderEntry = (workspacesById, id) => {
     const entry = get(workspacesById, id);
+    const { workspace } = this.props;
+    const workspaceId = workspace._id;
     return (
       <div className="panel-item" key={id}>
-        <Link to={`${this.props.workspace._id}/${id}`}>
+        <Link
+          to={{
+            pathname: `${workspaceId}/${entry._id}`,
+            state: {
+              workspaceId,
+              entry,
+            },
+          }}
+        >
           <span>{entry.name}</span>
         </Link>
       </div>

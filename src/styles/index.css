@@ -26,8 +26,8 @@ a:visited {
 }
 
 .container {
-  max-width: 900px;
-  padding: 32px 16px 64px;
+  max-width: 864px;
+  padding: 132px 16px 64px;
   margin: 0 auto;
 }
 
@@ -81,6 +81,12 @@ a:visited {
   margin-left: 0px;
   margin-right: 0px;
   width: auto;
+}
+
+.viewer {
+  background: #24273C;
+  height: 100vh;
+  padding: 16px;
 }
 
 .modal-overlay {
