@@ -17,7 +17,7 @@ Orbit is an open-source data visualisation tool that allows businesses, sports t
 * VX.js
 * PostCSS
 
-### Back-end: (https://github.com/cjjenkinson/orbit-server)
+### Back-end: [Orbit-server](https://github.com/cjjenkinson/orbit-server)
 * Koa
 * MongoDB
 * MongoLab
