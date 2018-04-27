@@ -97,7 +97,7 @@ export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) 
     const snapshot = await snapshotService.createSnapshot(workspaceId, entryId, snapshotData);
 
     dispatch({ type: types.ENTRIES_ADD_SNAPSHOT_SUCCESS, entryId, ...snapshot });
-    dispatch(goBack());
+    dispatch(push(`/workspace/${workspaceId}`));
   } catch (err) {
     dispatch({
       type: types.ENTRIES_ADD_SNAPSHOT_FAILURE,

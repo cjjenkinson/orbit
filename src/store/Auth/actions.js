@@ -21,7 +21,7 @@ export const login = formValues => async (dispatch) => {
 
     const { email, password } = formValues;
 
-    const user = await authService.login(email, password);
+    const user = await authService.login(email.toLowerCase(), password);
 
     if (user.errors) {
       throw new Error(user.errors);
