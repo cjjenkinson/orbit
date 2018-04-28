@@ -43,7 +43,7 @@ class AddEntry extends Component {
           <div className="p-16">
             <form onSubmit={this.onSubmit}>
               <span>Name:</span>
-              <Input value={this.state.name} onChange={this.onNameChange} />
+              <Input value={this.state.name} onChange={this.onNameChange} className="input-field"/>
               <button type="submit" className="button">
                 Add
               </button>
