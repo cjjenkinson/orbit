@@ -93,6 +93,7 @@ class WorkspaceView extends Component {
     const workspaceId = workspace._id;
     return (
       <Link
+        key={id}
         to={{
           pathname: `${workspaceId}/${entry._id}`,
           state: {
@@ -101,7 +102,7 @@ class WorkspaceView extends Component {
           },
         }}
       >
-        <div className="panel-item" key={id}>
+        <div className="panel-item" >
           <span>{entry.name}</span>
         </div>
       </Link>

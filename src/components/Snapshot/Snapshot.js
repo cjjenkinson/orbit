@@ -183,6 +183,7 @@ class Snapshot extends React.Component {
           />
           {scoreCoordinatesWithLabels.map((value, index) => (
             <SnapshotPoint
+              key={index}
               cx={value.x}
               cy={value.y}
               fill="#52247f"
@@ -190,6 +191,7 @@ class Snapshot extends React.Component {
           ))}
           {scoreCoordinatesWithLabels.map((value, index) => (
             <SnapshotLabel
+              key={index}
               lx={newPointsArray[index].x}
               ly={newPointsArray[index].y}
               label={value.label}
@@ -205,6 +207,7 @@ class Snapshot extends React.Component {
           />
           {previousScoreCoordinatesWithLabels.map((value, index) => (
             <SnapshotPoint
+              key={index}
               cx={value.x}
               cy={value.y}
               fill="#005929"
@@ -212,6 +215,7 @@ class Snapshot extends React.Component {
           ))}
           {previousScoreCoordinatesWithLabels.map((value, index) => (
             <SnapshotLabel
+              key={index}
               lx={newPointsArray[index].x}
               ly={newPointsArray[index].y}
               label={value.label}
