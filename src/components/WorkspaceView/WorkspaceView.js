@@ -87,19 +87,19 @@ class WorkspaceView extends Component {
     const { workspace } = this.props;
     const workspaceId = workspace._id;
     return (
-      <div className="panel-item" key={id}>
-        <Link
-          to={{
-            pathname: `${workspaceId}/${entry._id}`,
-            state: {
-              workspaceId,
-              entry,
-            },
-          }}
-        >
+      <Link
+        to={{
+          pathname: `${workspaceId}/${entry._id}`,
+          state: {
+            workspaceId,
+            entry,
+          },
+        }}
+      >
+        <div className="panel-item" key={id}>
           <span>{entry.name}</span>
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   };
 
@@ -116,13 +116,15 @@ class WorkspaceView extends Component {
                 </Col>
                 <Col span={12}>
                   <Link to={`${workspace._id}/add`}>
-                    <button className="button right">{`Add ${workspace.template.name}`}</button>
+                    <button className="button right">{`Add ${
+                      workspace.template.name
+                    }`}</button>
                   </Link>
                 </Col>
               </Row>
             </div>
             {entriesByIdArray.length
-              ? entriesByIdArray.map(id => this.renderEntry(entriesById, id))
+              ? entriesByIdArray.map((id) => this.renderEntry(entriesById, id))
               : null}
           </div>
         </div>
@@ -172,9 +174,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  deleteWorkspace: id => dispatch(workspaceActions.deleteWorkspace(id)),
-  getEntries: id => dispatch(entryActions.getEntries(id)),
+const mapDispatchToProps = (dispatch) => ({
+  deleteWorkspace: (id) => dispatch(workspaceActions.deleteWorkspace(id)),
+  getEntries: (id) => dispatch(entryActions.getEntries(id)),
 });
 
 WorkspaceView.propTypes = {
