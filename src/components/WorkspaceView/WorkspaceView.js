@@ -15,6 +15,9 @@ import * as entryActions from '../../store/Entries/actions';
 import SubHeader from '../../components/SubHeader';
 import Loader from '../../components/Loader';
 
+import ProgressChart from '../ProgressChart/ProgressChart';
+import './WorkspaceView.css';
+
 class WorkspaceView extends Component {
   componentDidMount() {
     this.fetchEntries();
@@ -57,7 +60,7 @@ class WorkspaceView extends Component {
     return (
       <Col span={8}>
         <div className="gr">
-          <div className="panel">
+          <div className="panel panel-workspace">
             <Row>
               <div className="panel-section">
                 <h3>Template</h3>
@@ -68,7 +71,9 @@ class WorkspaceView extends Component {
               </div>
               <div className="panel-section">
                 <h4>Enablers</h4>
-                {this.renderEnablers()}
+                <div className="enabler-list">
+                  {this.renderEnablers()}
+                </div>
               </div>
             </Row>
           </div>
@@ -108,7 +113,7 @@ class WorkspaceView extends Component {
     return (
       <Col span={16}>
         <div className="gr">
-          <div className="panel">
+          <div className="panel panel-workspace">
             <div className="panel-section">
               <Row>
                 <Col span={12}>
@@ -118,19 +123,32 @@ class WorkspaceView extends Component {
                   <Link to={`${workspace._id}/add`}>
                     <button className="button right">{`Add ${
                       workspace.template.name
-                    }`}</button>
+                    }`}
+                    </button>
                   </Link>
                 </Col>
               </Row>
             </div>
-            {entriesByIdArray.length
-              ? entriesByIdArray.map((id) => this.renderEntry(entriesById, id))
-              : null}
+            <div className="entries-list">
+              {entriesByIdArray.length
+                ? entriesByIdArray.map(id => this.renderEntry(entriesById, id))
+                : null}
+            </div>
           </div>
         </div>
       </Col>
     );
   };
+
+  renderProgressChart = () => {
+    const { entriesById } = this.props;
+    return (
+      <Col span="24">
+        <div className="gr">
+          <ProgressChart progressEntries={entriesById} />
+        </div>
+      </Col>);
+  }
 
   renderLoading = () => <Loader />;
 
@@ -149,10 +167,12 @@ class WorkspaceView extends Component {
                   <div>
                     {this.renderTemplate()}
                     {this.renderEntries()}
+                    {this.renderProgressChart()}
                   </div>
                 )}
               </Row>
             </div>
+
           </div>
         </div>
       </div>
@@ -174,9 +194,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteWorkspace: (id) => dispatch(workspaceActions.deleteWorkspace(id)),
-  getEntries: (id) => dispatch(entryActions.getEntries(id)),
+const mapDispatchToProps = dispatch => ({
+  deleteWorkspace: id => dispatch(workspaceActions.deleteWorkspace(id)),
+  getEntries: id => dispatch(entryActions.getEntries(id)),
 });
 
 WorkspaceView.propTypes = {

@@ -1,0 +1,13 @@
+.panel-worspace {
+  height: 282px;
+}
+
+.entries-list {
+  height: 216px;
+  overflow-y: scroll;
+}
+
+.enabler-list {
+  height: 62px;
+  overflow-y: scroll;
+}

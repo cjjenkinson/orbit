@@ -1,0 +1,22 @@
+.progress-chart-item {
+  display: flex;
+  width: 100%;
+  height: 250px;
+  border-bottom: 1px solid #D7DEE5;
+  text-align: left;
+}
+
+.progress-info {
+  width: 33%;
+  padding: 16px;
+  margin-right: 16px;
+  align-items: center;
+  display: flex;
+}
+
+.progress-chart {
+  width: 66%;
+  padding: 16px;
+  align-items: center;
+  display: flex;
+}
