@@ -13,7 +13,7 @@ const updateLocalStorage = debounce(
 
 export const handleStoreUpdates = (store) => {
   const {
-    alert, workspaces, entries, router, ...relevantState
+    alert, router, ...relevantState
   } = store.getState();
 
   updateLocalStorage(JSON.stringify(relevantState));
