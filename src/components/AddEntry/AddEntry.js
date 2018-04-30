@@ -6,6 +6,7 @@ import { Input } from 'antd';
 import BackButton from '../BackButton';
 
 import * as entryActions from '../../store/Entries/actions';
+import './AddEntry.css';
 
 class AddEntry extends Component {
   constructor(props) {
@@ -43,10 +44,12 @@ class AddEntry extends Component {
           <div className="p-16">
             <form onSubmit={this.onSubmit}>
               <span>Name:</span>
-              <Input value={this.state.name} onChange={this.onNameChange} className="input-field" />
-              <button type="submit" className="button">
-                Add
-              </button>
+              <div className="form">
+                <Input value={this.state.name} onChange={this.onNameChange} className="input-field" />
+                <button type="submit" className="button">
+                  Add
+                </button>
+              </div>
             </form>
           </div>
         </div>

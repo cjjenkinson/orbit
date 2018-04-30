@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Input } from 'antd';
+import moment from 'moment';
 import BackButton from '../BackButton';
 import AddSnapshotSlider from '../AddSnapshotSlider';
 
@@ -15,22 +16,22 @@ class AddSnapshot extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
+      date: moment(Date.now()).format('YYYY-MM-DD'),
       score: [],
     };
   }
 
   onNameChange = (e) => {
     this.setState({
-      title: e.target.value,
+      date: e.target.value,
     });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
     const { workspaceId, entryId } = this.props;
-    const { title, score } = this.state;
-    const data = { title, score };
+    const { date, score } = this.state;
+    const data = { date, score };
     // dispatch to addSnapshot action
     this.props.addSnapshot(workspaceId, entryId, data);
   };
@@ -59,8 +60,8 @@ class AddSnapshot extends Component {
         <div className="panel add-snapshot-panel">
           <p className="h4">New Snapshot</p>
           <form onSubmit={this.onSubmit}>
-            <span>Name:</span>
-            <Input value={this.state.title} onChange={this.onNameChange} />
+            <span>Date:</span>
+            <Input type="date" value={this.state.date} onChange={this.onNameChange} />
             {this.renderEnablers()}
             <button type="submit" className="button">
               Add
