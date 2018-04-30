@@ -42,8 +42,11 @@ class ProgressChartItem extends Component {
     if (!this.props.entry.snapshots[0]) return null;
     const initial = this.props.entry.snapshots[0].enablers;
     const current = this.props.entry.snapshots[this.props.entry.snapshots.length - 1].enablers;
-    const enablers = initial.map(enabler => ({ label: enabler.label, Initial: (enabler.score * 10), Current: current.find(el => el.label === enabler.label).score * 10 }));
-    console.log(enablers);
+    const enablers = initial.map(enabler => ({
+      label: enabler.label,
+      Initial: enabler.score * 10,
+      Current: current.find(el => el.label === enabler.label).score * 10,
+    }));
     return (
       <BarChart width={650} height={230} data={enablers}>
         <XAxis dataKey="label" interval="preserveStartEnd" />
