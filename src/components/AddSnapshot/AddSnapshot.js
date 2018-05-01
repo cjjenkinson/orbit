@@ -17,11 +17,17 @@ class AddSnapshot extends Component {
     super(props);
     this.state = {
       date: moment(Date.now()).format('YYYY-MM-DD'),
-      score: [],
+      score: props.enablers.reduce((accum, label) => {
+        accum[label] = {
+          label,
+          score: 1,
+        };
+        return accum;
+      }, {}),
     };
   }
 
-  onNameChange = (e) => {
+  onDateChange = (e) => {
     this.setState({
       date: e.target.value,
     });
@@ -30,7 +36,8 @@ class AddSnapshot extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { workspaceId, entryId } = this.props;
-    const { date, score } = this.state;
+    const { date } = this.state;
+    const score = Object.keys(this.state.score).map(key => this.state.score[key]);
     const data = { date, score };
     // dispatch to addSnapshot action
     this.props.addSnapshot(workspaceId, entryId, data);
@@ -38,15 +45,15 @@ class AddSnapshot extends Component {
 
   addEnablerScoreToState = (enablerScore) => {
     this.setState({
-      score: [...this.state.score, enablerScore],
+      score: { ...this.state.score, [enablerScore.label]: enablerScore },
     });
   };
 
   renderEnablers = () => {
     const { enablers } = this.props;
-    return enablers.map(enabler => (
+    return enablers.map((enabler, i) => (
       <AddSnapshotSlider
-        key={`enabler: ${enabler}`}
+        key={i}
         enabler={enabler}
         finalValue={enablerScore => this.addEnablerScoreToState(enablerScore)}
       />
@@ -61,7 +68,7 @@ class AddSnapshot extends Component {
           <p className="h4">New Snapshot</p>
           <form onSubmit={this.onSubmit}>
             <span>Date:</span>
-            <Input type="date" value={this.state.date} onChange={this.onNameChange} />
+            <Input type="date" value={this.state.date} onChange={this.onDateChange} max={moment(Date.now()).format('YYYY-MM-DD')} required />
             {this.renderEnablers()}
             <button type="submit" className="button">
               Add

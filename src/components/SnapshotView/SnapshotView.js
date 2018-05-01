@@ -88,8 +88,7 @@ class SnapshotView extends Component {
                   <div className="snapshot-container">
                     <div className="snapshot-panel">
                       <div className="snapshot-header">
-                        <h2 className="snapshot-title">{`${name} - ${snapshot.title}`}</h2>
-                        <h5 className="snapshot-date">{this.renderDate()}</h5>
+                        <h2 className="snapshot-title">{`${name} - ${this.renderDate()}`}</h2>
                         <div className="snapshot-publish">
                           <button className="button right">Publish</button>
                         </div>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Row, Col, Icon, Popconfirm } from 'antd';
+import moment from 'moment';
 
 import * as entrySelectors from '../../store/Entries/selectors';
 import * as entryActions from '../../store/Entries/actions';
@@ -56,7 +57,7 @@ class EntryView extends Component {
                 },
               }}
           >
-            <span>{s.title}</span>
+            <span>{ moment(s.date).format('MMM Do YYYY')}</span>
           </Link>
         </div>
       ))

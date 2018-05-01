@@ -6,7 +6,7 @@ import { Slider } from 'antd';
 import './AddSnapshotSlider.css';
 
 class AddSnapshotSlider extends Component {
-  onAfterSlideChange = (value) => {
+  onAfterSlideChange = (value = 1) => {
     const enablerScore = {
       label: this.props.enabler,
       score: value,
@@ -21,9 +21,10 @@ class AddSnapshotSlider extends Component {
         <Slider
           className="add-snapshot-slider"
           step={1}
+          defaultValue={1}
+          min={1}
           max={10}
-          onChange={this.onSlideChange}
-          onAfterChange={this.onAfterSlideChange}
+          onChange={this.onAfterSlideChange}
         />
       </div>
     );

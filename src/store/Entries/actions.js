@@ -81,7 +81,7 @@ export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) 
   try {
     dispatch({ type: types.ENTRIES_ADD_SNAPSHOT });
 
-    const { title, score } = formData;
+    const { date, score } = formData;
 
     const scoreAsDecimal = score.map(s => ({
       label: s.label,
@@ -89,7 +89,7 @@ export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) 
     }));
 
     const snapshotData = {
-      title,
+      date,
       comments: '',
       enablers: scoreAsDecimal,
     };
