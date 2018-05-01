@@ -45,7 +45,7 @@ class EntryView extends Component {
   renderSnapshots = () => {
     const { snapshots, workspaceId, entry } = this.props;
     return snapshots.length
-      ? snapshots.map(s => (
+      ? [...snapshots].reverse().map(s => (
         <div className="panel-item" key={s._id}>
           <Link
             to={{

@@ -5,10 +5,14 @@ import ProgressChartItem from '../ProgressChartItem/ProgressChartItem';
 import './ProgressChart.css';
 
 class ProgressChart extends Component {
-  renderProgress = () =>
-    Object.keys(this.props.progressEntries).map(key => (
-      <ProgressChartItem key={key} entry={this.props.progressEntries[key]} />
-    ));
+  renderProgress = () => {
+    if (Object.keys(this.props.progressEntries).length) {
+      return Object.keys(this.props.progressEntries).map(key => (
+        <ProgressChartItem key={key} entry={this.props.progressEntries[key]} />
+      ));
+    }
+    return <h1 className="no-result">No progressess to show</h1>;
+  }
 
   render() {
     return (

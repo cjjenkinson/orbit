@@ -20,7 +20,7 @@ class AddSnapshot extends Component {
       score: props.enablers.reduce((accum, label) => {
         accum[label] = {
           label,
-          score: 1,
+          score: 0,
         };
         return accum;
       }, {}),

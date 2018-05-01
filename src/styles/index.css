@@ -117,3 +117,7 @@ a:visited {
 .left {
   float: left;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

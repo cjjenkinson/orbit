@@ -11,7 +11,7 @@ class ProgressChartItem extends Component {
     const chartData = this.props.entry.snapshots.map((snap) => {
       const overallTot = snap.enablers.reduce((a, b) => a + b.score, 0);
       const overallAvg = Math.round(((overallTot * 10) / snap.enablers.length) * 10) / 10;
-      return { date: moment(snap.date).format('MMMM Do'), 'Overall score': overallAvg };
+      return { date: moment(snap.date).format('MMM Do \'YY'), 'Overall score': overallAvg };
     });
     return (
       <LineChart
@@ -62,6 +62,7 @@ class ProgressChartItem extends Component {
   render() {
     return (
       <div className="progress-chart-item">
+        {!this.props.entry.snapshots.length ? <h1 className="no-snapshot">Add a new snapshot</h1> : null}
         <div className="progress-info">
           <h1>{this.props.entry.name}</h1>
           <div className="enablers-chart">{this.renderProgressChart()}</div>

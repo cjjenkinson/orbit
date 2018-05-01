@@ -133,7 +133,7 @@ class WorkspaceView extends Component {
             <div className="entries-list">
               {entriesByIdArray.length
                 ? entriesByIdArray.map(id => this.renderEntry(entriesById, id))
-                : null}
+                : <h1 className="no-result">Add a new {workspace.template.name}</h1>}
             </div>
           </div>
         </div>
