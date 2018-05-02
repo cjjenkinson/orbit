@@ -15,15 +15,16 @@ import './AddSnapshot.css';
 class AddSnapshot extends Component {
   constructor(props) {
     super(props);
+    document.title = 'Orbit | Add new snapshot';
     this.state = {
       date: moment(Date.now()).format('YYYY-MM-DD'),
-      score: props.enablers.reduce((accum, label) => {
-        accum[label] = {
+      score: props.enablers.reduce((accum, label) => ({
+        ...accum,
+        [label]: {
           label,
           score: 0,
-        };
-        return accum;
-      }, {}),
+        },
+      }), {}),
     };
   }
 
@@ -51,9 +52,9 @@ class AddSnapshot extends Component {
 
   renderEnablers = () => {
     const { enablers } = this.props;
-    return enablers.map((enabler, i) => (
+    return enablers.map(enabler => (
       <AddSnapshotSlider
-        key={i}
+        key={enabler}
         enabler={enabler}
         finalValue={enablerScore => this.addEnablerScoreToState(enablerScore)}
       />

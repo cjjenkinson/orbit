@@ -17,6 +17,10 @@ import './SnapshotView.css';
 const createMutableData = data => Immutable.asMutable(data);
 
 class SnapshotView extends Component {
+  componentDidMount() {
+    document.title = `Orbit | ${this.props.entry.name} - ${this.renderDate()}`;
+  }
+
   renderLoading = () => <Loader />;
 
   renderDate = () => {

@@ -19,6 +19,7 @@ class DashboardView extends Component {
   componentDidMount() {
     // Don't fetch if workspaces are hydrated from localStorage
     this.props.getWorkspaces();
+    document.title = 'Orbit | Dashboard';
   }
 
   onDeleteWorkspace = (id) => {

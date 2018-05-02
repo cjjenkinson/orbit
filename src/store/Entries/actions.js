@@ -70,8 +70,8 @@ export const deleteEntry = (workspaceId, id) => async (dispatch) => {
       throw new Error('Failed to delete entry');
     }
 
-    dispatch({ type: types.ENTRIES_DELETE_SUCCESS });
     dispatch(push(`/workspace/${workspaceId}`));
+    dispatch({ type: types.ENTRIES_DELETE_SUCCESS, id });
   } catch (err) {
     dispatch({ type: types.ENTRIES_DELETE_FAILURE, error: err });
   }

@@ -11,6 +11,7 @@ import './AddEntry.css';
 class AddEntry extends Component {
   constructor(props) {
     super(props);
+    document.title = 'Orbit | Add new entry';
     this.state = {
       name: '',
     };

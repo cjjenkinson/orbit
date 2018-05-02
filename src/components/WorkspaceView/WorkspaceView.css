@@ -1,5 +1,5 @@
-.panel-worspace {
-  height: 282px;
+.panel-workspace {
+  height: 320px;
 }
 
 .entries-list {
@@ -20,4 +20,19 @@
   align-items: center;
   margin: 0;
   color: #ddd;
+}
+
+.success, .warning {
+  width: 8px;
+  height: 8px;
+  margin: -15px auto 0 auto;
+  border-radius: 50%;
+}
+
+.success {
+  background-color: #00C64F;
+}
+
+.warning {
+  border: 2px solid #00C64F;
 }

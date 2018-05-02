@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import get from 'lodash/get';
+import moment from 'moment';
 
-import { Row, Col, Icon, Popconfirm } from 'antd';
+import { Row, Col, Icon, Popconfirm, Calendar } from 'antd';
 
 import * as workspaceSelectors from '../../store/Workspaces/selectors';
 import * as workspaceActions from '../../store/Workspaces/actions';
@@ -21,7 +22,34 @@ import './WorkspaceView.css';
 class WorkspaceView extends Component {
   componentDidMount() {
     this.fetchEntries();
+    document.title = `Orbit | ${this.props.workspace.name}`;
   }
+
+  getEntrySnapshots = () => Object.keys(this.props.entriesById).map(key =>
+    this.props.entriesById[key].snapshots.map(snap =>
+      moment(snap.date).format('MMM Do YY'),
+    ),
+  );
+
+  getListData = (value) => {
+    let allEntriesInclude = true;
+    let atLeastOneInclude = false;
+    const entrySnapshots = this.getEntrySnapshots();
+    entrySnapshots.forEach((entry) => {
+      if (!entry.includes(moment(value._d).format('MMM Do YY'))) allEntriesInclude = false;
+      if (entry.includes(moment(value._d).format('MMM Do YY'))) atLeastOneInclude = true;
+    });
+    if (allEntriesInclude && atLeastOneInclude) return { type: 'success' };
+    else if (!allEntriesInclude && atLeastOneInclude) return { type: 'warning' };
+    return {};
+  };
+
+  dateCellRender = (value) => {
+    const day = this.getListData(value);
+    return (
+      <div className={day.type} />
+    );
+  };
 
   fetchEntries = () => {
     this.props.getEntries(this.props.match.params.id);
@@ -55,32 +83,15 @@ class WorkspaceView extends Component {
     );
   };
 
-  renderTemplate = () => {
-    const { workspace } = this.props;
-    return (
-      <Col span={8}>
-        <div className="gr">
-          <div className="panel panel-workspace">
-            <Row>
-              <div className="panel-section">
-                <h3>Template</h3>
-              </div>
-              <div className="panel-section">
-                <h4>Reference</h4>
-                <h3>{workspace.template.name}</h3>
-              </div>
-              <div className="panel-section">
-                <h4>Enablers</h4>
-                <div className="enabler-list">
-                  {this.renderEnablers()}
-                </div>
-              </div>
-            </Row>
-          </div>
+  renderCalendar = () => (
+    <Col span={8}>
+      <div className="gr">
+        <div className="panel-workspace panel">
+          <Calendar dateCellRender={this.dateCellRender} fullscreen={false} />
         </div>
-      </Col>
-    );
-  };
+      </div>
+    </Col>
+  );
 
   renderEnablers = () => {
     const { enablers } = this.props.workspace.template;
@@ -102,7 +113,7 @@ class WorkspaceView extends Component {
           },
         }}
       >
-        <div className="panel-item" >
+        <div className="panel-item">
           <span>{entry.name}</span>
         </div>
       </Link>
@@ -122,18 +133,21 @@ class WorkspaceView extends Component {
                 </Col>
                 <Col span={12}>
                   <Link to={`${workspace._id}/add`}>
-                    <button className="button right">{`Add ${
-                      workspace.template.name
-                    }`}
+                    <button className="button right">
+                      {`Add ${workspace.template.name}`}
                     </button>
                   </Link>
                 </Col>
               </Row>
             </div>
             <div className="entries-list">
-              {entriesByIdArray.length
-                ? entriesByIdArray.map(id => this.renderEntry(entriesById, id))
-                : <h1 className="no-result">Add a new {workspace.template.name}</h1>}
+              {entriesByIdArray.length ? (
+                entriesByIdArray.map(id => this.renderEntry(entriesById, id))
+              ) : (
+                <h1 className="no-result">
+                  Add a new {workspace.template.name}
+                </h1>
+              )}
             </div>
           </div>
         </div>
@@ -148,8 +162,9 @@ class WorkspaceView extends Component {
         <div className="gr">
           <ProgressChart progressEntries={entriesById} />
         </div>
-      </Col>);
-  }
+      </Col>
+    );
+  };
 
   renderLoading = () => <Loader />;
 
@@ -166,14 +181,13 @@ class WorkspaceView extends Component {
                   this.renderLoading()
                 ) : (
                   <div>
-                    {this.renderTemplate()}
+                    {this.renderCalendar()}
                     {this.renderEntries()}
                     {this.renderProgressChart()}
                   </div>
                 )}
               </Row>
             </div>
-
           </div>
         </div>
       </div>

@@ -13,6 +13,10 @@ import SubHeader from '../../components/SubHeader';
 import Loader from '../../components/Loader';
 
 class EntryView extends Component {
+  componentDidMount() {
+    document.title = `Orbit | ${this.props.entry.name}`;
+  }
+
   confirm = () => {
     const { deleteEntry, workspaceId, entry } = this.props;
     deleteEntry(workspaceId, entry._id);
