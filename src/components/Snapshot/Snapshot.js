@@ -215,6 +215,7 @@ class Snapshot extends React.Component {
           ))}
           {previousScoreCoordinatesWithLabels.map((value, index) => (
             <SnapshotLabel
+              key={index}
               lx={newPointsArray[index].x}
               ly={newPointsArray[index].y}
               label={value.label}

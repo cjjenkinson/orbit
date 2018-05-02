@@ -11,7 +11,7 @@ class ProgressChart extends Component {
         <ProgressChartItem key={key} entry={this.props.progressEntries[key]} />
       ));
     }
-    return <h1 className="no-result">No progressess to show</h1>;
+    return <h1 className="no-result">No progress to show</h1>;
   }
 
   render() {
