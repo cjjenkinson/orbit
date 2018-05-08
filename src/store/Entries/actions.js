@@ -70,8 +70,8 @@ export const deleteEntry = (workspaceId, id) => async (dispatch) => {
       throw new Error('Failed to delete entry');
     }
 
-    dispatch({ type: types.ENTRIES_DELETE_SUCCESS });
     dispatch(push(`/workspace/${workspaceId}`));
+    dispatch({ type: types.ENTRIES_DELETE_SUCCESS, id });
   } catch (err) {
     dispatch({ type: types.ENTRIES_DELETE_FAILURE, error: err });
   }
@@ -81,7 +81,7 @@ export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) 
   try {
     dispatch({ type: types.ENTRIES_ADD_SNAPSHOT });
 
-    const { title, score } = formData;
+    const { date, score } = formData;
 
     const scoreAsDecimal = score.map(s => ({
       label: s.label,
@@ -89,7 +89,7 @@ export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) 
     }));
 
     const snapshotData = {
-      title,
+      date,
       comments: '',
       enablers: scoreAsDecimal,
     };
@@ -97,7 +97,7 @@ export const addSnapshot = (workspaceId, entryId, formData) => async (dispatch) 
     const snapshot = await snapshotService.createSnapshot(workspaceId, entryId, snapshotData);
 
     dispatch({ type: types.ENTRIES_ADD_SNAPSHOT_SUCCESS, entryId, ...snapshot });
-    dispatch(goBack());
+    dispatch(push(`/workspace/${workspaceId}`));
   } catch (err) {
     dispatch({
       type: types.ENTRIES_ADD_SNAPSHOT_FAILURE,

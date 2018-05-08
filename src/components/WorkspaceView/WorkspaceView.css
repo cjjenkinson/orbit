@@ -1,0 +1,38 @@
+.panel-workspace {
+  height: 320px;
+}
+
+.entries-list {
+  height: 253px;
+  overflow-y: scroll;
+}
+
+.enabler-list {
+  height: 62px;
+  overflow-y: scroll;
+}
+
+.no-result {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  color: #ddd;
+}
+
+.success, .warning {
+  width: 8px;
+  height: 8px;
+  margin: -15px auto 0 auto;
+  border-radius: 50%;
+}
+
+.success {
+  background-color: #00C64F;
+}
+
+.warning {
+  border: 2px solid #00C64F;
+}

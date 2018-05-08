@@ -1,0 +1,7 @@
+.form {
+  display: flex;
+}
+
+.input-field {
+  margin-right: 5px;
+}

@@ -10,6 +10,10 @@ import * as workspaceActions from '../../store/Workspaces/actions';
 const FormItem = Form.Item;
 let uuid = 0;
 class AddWorkspace extends Component {
+  componentDidMount() {
+    document.title = 'Orbit | Add new workspace';
+  }
+
   remove = (k) => {
     const { form } = this.props;
     // can use data-binding to get

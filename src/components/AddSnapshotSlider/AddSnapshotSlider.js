@@ -22,8 +22,7 @@ class AddSnapshotSlider extends Component {
           className="add-snapshot-slider"
           step={1}
           max={10}
-          onChange={this.onSlideChange}
-          onAfterChange={this.onAfterSlideChange}
+          onChange={this.onAfterSlideChange}
         />
       </div>
     );

@@ -14,6 +14,10 @@ import Snapshot from '../../components/Snapshot';
 import mockData from './mockData';
 
 class LandingView extends Component {
+  componentDidMount() {
+    document.title = 'Orbit';
+  }
+
   renderUserHeader = () => <Link to="/dashboard">Dashboard</Link>;
 
   renderUserButton = () => (

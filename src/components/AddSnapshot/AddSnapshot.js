@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Input } from 'antd';
+import moment from 'moment';
 import BackButton from '../BackButton';
 import AddSnapshotSlider from '../AddSnapshotSlider';
 
@@ -14,30 +15,38 @@ import './AddSnapshot.css';
 class AddSnapshot extends Component {
   constructor(props) {
     super(props);
+    document.title = 'Orbit | Add new snapshot';
     this.state = {
-      title: '',
-      score: [],
+      date: moment(Date.now()).format('YYYY-MM-DD'),
+      score: props.enablers.reduce((accum, label) => ({
+        ...accum,
+        [label]: {
+          label,
+          score: 0,
+        },
+      }), {}),
     };
   }
 
-  onNameChange = (e) => {
+  onDateChange = (e) => {
     this.setState({
-      title: e.target.value,
+      date: e.target.value,
     });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
     const { workspaceId, entryId } = this.props;
-    const { title, score } = this.state;
-    const data = { title, score };
+    const { date } = this.state;
+    const score = Object.keys(this.state.score).map(key => this.state.score[key]);
+    const data = { date, score };
     // dispatch to addSnapshot action
     this.props.addSnapshot(workspaceId, entryId, data);
   };
 
   addEnablerScoreToState = (enablerScore) => {
     this.setState({
-      score: [...this.state.score, enablerScore],
+      score: { ...this.state.score, [enablerScore.label]: enablerScore },
     });
   };
 
@@ -45,7 +54,7 @@ class AddSnapshot extends Component {
     const { enablers } = this.props;
     return enablers.map(enabler => (
       <AddSnapshotSlider
-        key={`enabler: ${enabler}`}
+        key={enabler}
         enabler={enabler}
         finalValue={enablerScore => this.addEnablerScoreToState(enablerScore)}
       />
@@ -59,8 +68,8 @@ class AddSnapshot extends Component {
         <div className="panel add-snapshot-panel">
           <p className="h4">New Snapshot</p>
           <form onSubmit={this.onSubmit}>
-            <span>Name:</span>
-            <Input value={this.state.title} onChange={this.onNameChange} />
+            <span>Date:</span>
+            <Input type="date" value={this.state.date} onChange={this.onDateChange} max={moment(Date.now()).format('YYYY-MM-DD')} required />
             {this.renderEnablers()}
             <button type="submit" className="button">
               Add
